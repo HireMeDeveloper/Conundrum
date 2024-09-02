@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="scripts/navigation.js" defer></script>
+    <script src="scripts/game.js" defer></script>
+    <script src="scripts/main.js" defer></script>
+</head>
+<body>
+    <div id="game" class="page">
+        <div>
+            <div class="header">
+                <div>
+                    INDO CONUNDRUM
+                </div>
+                <div>
+                    <a onclick="showPage('info')">
+                        <img src="resources/info-icon.svg" class="icon">
+                    </a>
+                </div>
+                <div>
+                    <a onclick="showPage('stats')">
+                        <img src="resources/stats-icon.svg" class="icon">
+                    </a>
+                </div>
+            </div>
+            <div class="underline"></div>
+        </div>
+        <div class="centered">
+            <div class="timer">
+                <img src="resources/timer-icon.svg" class="icon">
+                <div class="text-timer">
+                    30:00
+                </div>
+            </div>
+        </div>
+        <div class="box left gap-game1">
+            <div>
+                <span class="text-game">Conundrum -</span> <span class="text-game-small">press letters as required</span>
+            </div>
+        </div>
+        <div class="box gap-game1">
+            <div class="card">A</div>
+            <div class="card">A</div>
+            <div class="card">A</div>
+            <div class="card">A</div>
+            <div class="card">A</div>
+            <div class="card">A</div>
+            <div class="card">A</div>
+            <div class="card">A</div>
+            <div class="card">A</div>
+        </div>
+        <div class="box left gap-game2">
+            <div class="text-game">
+                Your Guess
+            </div>
+        </div>
+        <div class="box gap-game1">
+            <div class="card">A</div>
+            <div class="card">A</div>
+            <div class="card">A</div>
+            <div class="card">A</div>
+            <div class="card">A</div>
+            <div class="card">A</div>
+            <div class="card">A</div>
+            <div class="card">A</div>
+            <div class="card">A</div>
+        </div>
+        <div class="centered gap-game1">
+            <button class="button hint">Hint</button>
+        </div>
+        <div class="underline"></div>
+        <div class="centered">
+            <div> Game</div>
+        </div>
+        <div class="centered">
+            <div>1 of 3</div>
+        </div>
+    </div>
+    <div id="info" class="page active">
+        <div>
+            <div class="header">
+                <div>
+                    INDO CONUNDRUM
+                </div>
+                <div>
+                    <a onclick="showPage('info')">
+                        <img src="resources/info-icon.svg" class="icon">
+                    </a>
+                </div>
+                <div>
+                    <a onclick="showPage('stats')">
+                        <img src="resources/stats-icon.svg" class="icon">
+                    </a>
+                </div>
+            </div>
+            <div class="underline"></div>
+        </div>
+        <div class="centered">
+            <button class="button play" onclick="showPage('game')">
+                PLAY
+            </button>
+        </div>
+    </div>
+    <div id="stats" class="page">
+                <div>
+                    <div class="header">
+                        <div>
+                            INDO CONUNDRUM stats
+                        </div>
+                        <div>
+                            <a onclick="showPage('info')">
+                                <img src="resources/info-icon.svg" class="icon">
+                            </a>
+                        </div>
+                        <div>
+                            <a onclick="showPage('stats')">
+                                <img src="resources/stats-icon.svg" class="icon">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="underline"></div>
+                </div>
+    </div>
+    <div id="welcome" class="page">
+    </div>
+</body>
+</html>
