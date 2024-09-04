@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles/format.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/text.css">
     <script src="scripts/navigation.js" defer></script>
     <script src="scripts/game.js" defer></script>
     <script src="scripts/main.js" defer></script>
@@ -14,7 +16,7 @@
         <div>
             <div class="header">
                 <div>
-                    INDO CONUNDRUM
+                    <img src="resources/Conundrum horizontal.svg" class="conundrum-horizontal-icon">
                 </div>
                 <div>
                     <a onclick="showPage('info')">
@@ -37,46 +39,49 @@
                 </div>
             </div>
         </div>
-        <div class="box left gap-game1">
+        <div class="box left gap" style="--amount: 2.5em">
             <div>
-                <span class="text-game">Conundrum -</span> <span class="text-game-small">press letters as required</span>
+                <span class="text-game-heading">Conundrum -</span> <span class="text-game-small">press letters as required</span>
             </div>
         </div>
-        <div class="box gap-game1">
-            <div class="card">A</div>
-            <div class="card">A</div>
-            <div class="card">A</div>
-            <div class="card">A</div>
-            <div class="card">A</div>
-            <div class="card">A</div>
-            <div class="card">A</div>
-            <div class="card">A</div>
-            <div class="card">A</div>
+        <div class="box gap" style="--amount: .25em" data-keyboard>
+            <button class="card-button" onclick="pressButton('A')">A</button>
+            <button class="card-button">A</button>
+            <button class="card-button">A</button>
+            <button class="card-button">A</button>
+            <button class="card-button">A</button>
+            <button class="card-button">A</button>
+            <button class="card-button">A</button>
+            <button class="card-button">A</button>
+            <button class="card-button">A</button>
         </div>
-        <div class="box left gap-game2">
-            <div class="text-game">
+        <div class="box left gap" style="--amount: 2.5em">
+            <div class="text-game-heading">
                 Your Guess
             </div>
         </div>
-        <div class="box gap-game1">
-            <div class="card">A</div>
-            <div class="card">A</div>
-            <div class="card">A</div>
-            <div class="card">A</div>
-            <div class="card">A</div>
-            <div class="card">A</div>
-            <div class="card">A</div>
-            <div class="card">A</div>
-            <div class="card">A</div>
+        <div class="box gap" style="--amount: .25em" data-guessboard>
+            <button class="card-button non-interactive guess"></button>
+            <button class="card-button non-interactive guess"></button>
+            <button class="card-button non-interactive guess"></button>
+            <button class="card-button non-interactive guess"></button>
+            <button class="card-button non-interactive guess"></button>
+            <button class="card-button non-interactive guess"></button>
+            <button class="card-button non-interactive guess"></button>
+            <button class="card-button non-interactive guess"></button>
+            <button class="card-button non-interactive guess"></button>
         </div>
-        <div class="centered gap-game1">
+        <div class="centered gap" style="--amount: 3em">
             <button class="button hint">Hint</button>
         </div>
-        <div class="underline"></div>
-        <div class="centered">
-            <div> Game</div>
+        <div class="centered text-game-hint gap"  style="--amount: .5em">
+            Sample Hint
         </div>
-        <div class="centered">
+        <div class="centered underline game gap" style="--amount: .25em"></div>
+        <div class="centered gap"  style="--amount: 8em">
+            <div class="text-game">Game</div>
+        </div>
+        <div class="centered text-game-number">
             <div>1 of 3</div>
         </div>
     </div>
@@ -84,11 +89,11 @@
         <div>
             <div class="header">
                 <div>
-                    INDO CONUNDRUM
+                    <img src="resources/Conundrum horizontal.svg" class="conundrum-horizontal-icon">
                 </div>
                 <div>
-                    <a onclick="showPage('info')">
-                        <img src="resources/info-icon.svg" class="icon">
+                    <a>
+                        <img src="resources/info-icon.svg" class="icon hidden">
                     </a>
                 </div>
                 <div>
@@ -99,31 +104,81 @@
             </div>
             <div class="underline"></div>
         </div>
-        <div class="centered">
+        <div class="text-info-title gap" style="--amount: 1em">
+            How To Play
+        </div>
+        <div class="text-info-heading gap" style="--amount: 1.2em">
+            A daily game with 3 puzzles
+        </div>
+        <div class="text-box-info gap" style="--amount: 1.2em">
+            In game 1 you are given 7 letters. Your task is to arrange all of those letters to form a word. This will require lateral thinking. You have 30 seconds to guess the correct answer.
+        </div>
+        <div class="text-box-info gap" style="--amount: 1em">
+            Game 2 has 8 letters and you have 40 seconds. Game 3 you have 9 letters and 50 seconds.
+        </div>
+        <div class="text-info-heading gap" style="--amount: 1.2em">
+            Hints
+        </div>
+        <div class="text-box-info gap" style="--amount: .2em">
+            A hint button is included to help you guess the word. However your grading will recieve a penalty if you use the Hint function!
+        </div>
+        <div class="text-info-heading gap" style="--amount: 1.2em">
+            Results
+        </div>
+        <div class="text-box-info gap" style="--amount: .2em">
+            After three daily rounds, you receive a grading.
+        </div>
+        <div class="centered gap" style="--amount: 6em">
             <button class="button play" onclick="showPage('game')">
                 PLAY
             </button>
         </div>
     </div>
     <div id="stats" class="page">
+        <div>
+            <div class="header">
                 <div>
-                    <div class="header">
-                        <div>
-                            INDO CONUNDRUM stats
-                        </div>
-                        <div>
-                            <a onclick="showPage('info')">
-                                <img src="resources/info-icon.svg" class="icon">
-                            </a>
-                        </div>
-                        <div>
-                            <a onclick="showPage('stats')">
-                                <img src="resources/stats-icon.svg" class="icon">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="underline"></div>
+                    <img src="resources/Conundrum horizontal.svg" class="conundrum-horizontal-icon">
                 </div>
+                <div>
+                    <a onclick="showPage('info')">
+                        <img src="resources/info-icon.svg" class="icon">
+                    </a>
+                </div>
+                <div>
+                    <a>
+                        <img src="resources/stats-icon.svg" class="icon hidden">
+                    </a>
+                </div>
+            </div>
+            <div class="underline"></div>
+        </div>
+        <div class="text-stats-heading gap" style="--amount: 1.2em">
+            Your Statistics
+        </div>
+        <div class="stats-grid">
+            <div class="statistic">
+                <h4 class="statistic-data">0</h4>
+                <p class="statistic-label">Played</p>
+            </div>
+            <div class="statistic">
+                <h4 class="statistic-data">0</h4>
+                <p class="statistic-label">Wins</p>
+            </div>
+            <div class="statistic">
+                <h4 class="statistic-data">0</h4>
+                <p class="statistic-label">Hints</p>
+            </div>
+            <div class="statistic large">
+                <h4 class="statistic-data">0</h4>
+                <p class="statistic-label text-stats-grade">Your Grade</p>
+            </div>
+        </div>
+        <div class="centered gap" style="--amount: 6em">
+            <button class="button share">
+                Share
+            </button>
+        </div>
     </div>
     <div id="welcome" class="page">
     </div>

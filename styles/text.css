@@ -1,0 +1,46 @@
+.text-game-timer {
+    padding-left: 0.6em;
+}
+
+.text-game-heading {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.text-game-small {
+    font-size: 0.7em;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.text-game-hint {
+    font-style:  italic;
+}
+
+.text-game {
+    font-weight: bold;
+}
+
+.text-game-number {
+    font-size: .7em;
+    font-weight: bold;
+}
+
+.text-info-title {
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+.text-info-heading {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.text-stats-heading {
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.text-stats-grade {
+    font-weight: bold;
+}

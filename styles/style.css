@@ -1,0 +1,166 @@
+.page {
+    visibility: hidden;
+    position: absolute;
+    margin-top: .5em;
+    padding-top: .5em;
+
+    max-width: 100%;
+    max-height: 100%;
+    overflow: hidden;
+}
+
+.page.active {
+    visibility: visible;
+    position: relative;
+}
+
+.header {
+    display: inline-flex;
+    gap: 1em;
+    height: 1.5em;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.underline {
+    width: 19em;
+    margin: 0;
+    height: 2px;
+    background: hsl(209, 7%, 78%);
+}
+
+.underline.game {
+    margin-left: 2em;
+    width: 15em;
+    background: skyblue;
+}
+
+.conundrum-horizontal-icon {
+    height: 1.25em;
+    padding-left: 1em;
+}
+
+.icon {
+    height: 1.25em;
+    user-select: none;
+    cursor: pointer;
+}
+
+.icon.hidden {
+    visibility: hidden;
+    user-select: none;
+}
+
+.button {
+    height: 2.1em;
+    background: black;
+    border: none;
+    border-radius: .25em;
+    font-weight: bold;
+    font-size: 1.1em;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+}
+
+.button.play {
+    width: 9em;
+    margin-top: 1.60em;
+}
+
+.button.share {
+    width: 9em;
+}
+
+.button.hint {
+    width: 9em;
+    color: black;
+    background: white;
+    border: solid black .1em;
+}
+
+.timer {
+    margin-top: 1em;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    border-radius: .25em;
+    border: solid black;
+    width: 5em;
+    padding: 0.2em;
+}
+
+.card {
+    border: .1em solid black;
+    border-radius: .2em;
+    padding: .4em;
+    margin: .2em;
+    width: 2em;
+    height: 2em;
+}
+
+.card-button {
+    color: black;
+    background: white;
+    border: .1em solid black;
+    border-radius: .4em;
+    margin: .1em;
+    width: 4em;
+    height: 2em;
+    font-weight: bold;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.card-button.non-interactive {
+    cursor: none;
+    pointer-events: none;
+}
+
+.changed {
+    background-color: var(--change-color);
+}
+
+.guess {
+    background: var(--guess-color);
+}
+
+.card.output {
+
+}
+
+.statistic {
+    display: inline;
+    border-color: black;
+    width: auto;
+    height: auto;
+    grid-column: span 1;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.statistic.large {
+    grid-column: span 3;
+}
+
+.statistic-data {
+    font-size: 1.25em;
+    margin-bottom: -.5em;
+}
+
+.statistic-label {
+    font-size: .65em;
+}
+
+.stats-grid {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    grid-template-columns: repeat(3, 3em);
+    grid-template-rows: repeat(2, 4.25em);
+    gap: .5em;
+    margin-bottom: 1em;
+    margin-top: -.5em;
+}
