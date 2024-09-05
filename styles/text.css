@@ -17,6 +17,10 @@
     font-style:  italic;
 }
 
+.text-game-hint.hidden {
+    visibility: hidden;
+}
+
 .text-game {
     font-weight: bold;
 }
@@ -43,4 +47,22 @@
 
 .text-stats-grade {
     font-weight: bold;
+}
+
+.text-welcome-title {
+    font-weight: bold;
+    font-size: 2.25em;
+}
+
+.text-welcome-subtitle {
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.text-welcome-date {
+    font-size: 0.8em;
+}
+
+.text-welcome-puzzle {
+    font-size: 0.8em;
 }

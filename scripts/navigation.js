@@ -20,7 +20,7 @@ function showPage(pageId, oldPage = null) {
 
     document.getElementById(pageId).classList.add('active')
     if (pageId === "game") {
-        startTimer(30)
+        startTimer()
     }
     else if (pageId === "stats") {
 

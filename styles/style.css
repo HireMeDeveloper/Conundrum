@@ -73,11 +73,26 @@
     width: 9em;
 }
 
+.button.play-again {
+    width: 9em;
+}
+
+.button.button.play-again.hidden {
+    visibility: hidden;
+    pointer-events: none;
+}
+
 .button.hint {
     width: 9em;
     color: black;
     background: white;
     border: solid black .1em;
+}
+
+button.hint.changed {
+    background-color: var(--change-color);
+    cursor: none;
+    pointer-events: none;
 }
 
 .timer {
@@ -106,11 +121,17 @@
     border: .1em solid black;
     border-radius: .4em;
     margin: .1em;
-    width: 4em;
+    width: 2em;
     height: 2em;
     font-weight: bold;
     font-size: 1em;
     cursor: pointer;
+}
+
+.card-button.hidden {
+    cursor: none;
+    pointer-events: none;
+    display: none;
 }
 
 .card-button.non-interactive {
@@ -120,14 +141,12 @@
 
 .changed {
     background-color: var(--change-color);
+    cursor: none;
+    pointer-events: none;
 }
 
 .guess {
     background: var(--guess-color);
-}
-
-.card.output {
-
 }
 
 .statistic {
