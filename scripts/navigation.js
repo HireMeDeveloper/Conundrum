@@ -20,12 +20,12 @@ function showPage(pageId, oldPage = null) {
 
     document.getElementById(pageId).classList.add('active')
     if (pageId === "game") {
-        startTimer()
+        openGame()
     }
     else if (pageId === "stats") {
 
     } else if (pageId === "welcome") {
-        
+        generateWelcomeMessage()
     } else if (pageId === "info") {
         
     }

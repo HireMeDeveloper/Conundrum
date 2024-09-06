@@ -162,7 +162,9 @@ html {
     border: none;
     pointer-events: none;
     background-color: var(--win-color);
-    padding: .75em;
+    padding: 1em;
+    padding-top: .5em;
+    padding-bottom: .5em;
     border-radius: .25em;
     opacity: 1;
     transition: opacity 500ms ease-in-out;

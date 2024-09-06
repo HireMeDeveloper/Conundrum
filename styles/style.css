@@ -73,6 +73,11 @@
     width: 9em;
 }
 
+.button.clear {
+    margin-left: 0.5em;
+    width: 2em;
+}
+
 .button.play-again {
     width: 9em;
 }

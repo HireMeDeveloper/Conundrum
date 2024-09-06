@@ -10,7 +10,6 @@
     <script src="scripts/navigation.js" defer></script>
     <script src="scripts/game.js" defer></script>
     <script src="scripts/main.js" defer></script>
-    <script src="scripts/welcome.js" defer></script>
 </head>
 <body>
     <div id="game" class="page">
@@ -73,15 +72,20 @@
             <button class="card-button non-interactive guess"></button>
             <button class="card-button non-interactive guess"></button>
         </div>
-        <div class="centered gap" style="--amount: 3em">
-            <button class="button hint" onclick="pressHint()" data-hint-button>Hint</button>
+        <div class="box gap" style="--amount: 3em">
+            <div class="centered">
+                <button class="button hint" onclick="pressHint()" data-hint-button>Hint</button>
+            </div>
+            <div class="centered">
+                <button class="button clear" onclick="clearGuess()">X</button>
+            </div>
         </div>
         <div class="centered text-game-hint gap hidden"  style="--amount: .5em" data-hint-text>
             None
         </div>
         <div class="centered underline game gap" style="--amount: .25em"></div>
         <div class="centered gap" style="--amount: 1em">
-            <button class="button play-again hidden" onclick="playNext()" data-next-button>
+            <button class="button play-again hidden" data-next-button>
                 Play Next
             </button>
         </div>
@@ -89,10 +93,10 @@
             <div class="text-game">Game</div>
         </div>
         <div class="centered text-game-number">
-            <div>1 of 3</div>
+            <div data-game-text>1 of 3</div>
         </div>
     </div>
-    <div id="info" class="page">
+    <div id="info" class="page active">
         <div>
             <div class="header">
                 <div>
@@ -178,7 +182,7 @@
                 <p class="statistic-label">Hints</p>
             </div>
             <div class="statistic large">
-                <h4 class="statistic-data">0</h4>
+                <h4 class="statistic-data">N/A</h4>
                 <p class="statistic-label text-stats-grade">Your Grade</p>
             </div>
         </div>
@@ -188,7 +192,7 @@
             </button>
         </div>
     </div>
-    <div id="welcome" class="page active">
+    <div id="welcome" class="page">
         <div class="header">
             <div>
                 <img src="resources/Conundrum horizontal.svg" class="conundrum-horizontal-icon">
