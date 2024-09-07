@@ -73,6 +73,10 @@
     width: 9em;
 }
 
+.button.share.inactive {
+    background-color: grey;
+}
+
 .button.clear {
     margin-left: 0.5em;
     width: 2em;
@@ -82,7 +86,7 @@
     width: 9em;
 }
 
-.button.button.play-again.hidden {
+.button.play-again.hidden {
     visibility: hidden;
     pointer-events: none;
 }
@@ -144,14 +148,14 @@ button.hint.changed {
     pointer-events: none;
 }
 
+.guess {
+    background: var(--guess-color);
+}
+
 .changed {
     background-color: var(--change-color);
     cursor: none;
     pointer-events: none;
-}
-
-.guess {
-    background: var(--guess-color);
 }
 
 .statistic {

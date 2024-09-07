@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="styles/format.css">
     <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="styles/text.css">
-    <script src="scripts/navigation.js" defer></script>
     <script src="scripts/game.js" defer></script>
     <script src="scripts/main.js" defer></script>
 </head>
@@ -168,7 +167,7 @@
         <div class="text-stats-heading gap" style="--amount: 1.2em">
             Your Statistics
         </div>
-        <div class="stats-grid">
+        <div class="stats-grid" data-statistics>
             <div class="statistic">
                 <h4 class="statistic-data">0</h4>
                 <p class="statistic-label">Played</p>
@@ -187,7 +186,7 @@
             </div>
         </div>
         <div class="centered gap" style="--amount: 6em">
-            <button class="button share">
+            <button class="button share" onclick="pressShare()" data-share-button>
                 Share
             </button>
         </div>

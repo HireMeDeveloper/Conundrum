@@ -31,6 +31,8 @@ let gameState = {
     hasOpenedPuzzle: false
 }
 
+let cumulativeData = []
+
 let currentPuzzle = ""
 let currentSolution = ""
 let currentHint = ""
@@ -53,33 +55,35 @@ function loadGame() {
 }
 
 function resetGameState() {
+    let puzzles = targetGame.puzzles;
+
     gameState = {
         games: [
             {
-                puzzle: "esintgt",
-                solution: "Testing",
-                hint: "Practicing Code",
+                puzzle: puzzles[0].scrambled,
+                solution: puzzles[0].word,
+                hint: puzzles[0].hint,
                 isWin: false,
                 usedHint: false
             },
             {
-                puzzle: "yiklcofc",
-                solution: "Clockify",
-                hint: "Time Keeping Platform",
+                puzzle: puzzles[1].scrambled,
+                solution: puzzles[1].word,
+                hint: puzzles[1].hint,
                 isWin: false,
                 usedHint: false
             },
             {
-                puzzle: "jpakelcap",
-                solution: "Applejack",
-                hint: "Fruity Cereal",
+                puzzle: puzzles[2].scrambled,
+                solution: puzzles[2].word,
+                hint: puzzles[2].hint,
                 isWin: false,
                 usedHint: false
             }
         ],
         currentGame: 0,
         isComplete: false,
-        gameNumber: targetGameNumber,
+        gameNumber: targetGame.number,
         hasOpenedPuzzle: false
     }
 
@@ -158,6 +162,25 @@ function revealNextButton() {
         gameState.isComplete = true;
         storeGameStateData()
 
+        if (cumulativeDataHasEntry(gameState.gameNumber) === false) {
+            let wins = 0;
+            let hints = 0;
+
+            gameState.games.forEach(game => {
+                if (game.isWin) wins += 1;
+                if (game.usedHint) hints += 1;
+            })
+
+            cumulativeData.push({
+                number: gameState.gameNumber,
+                games: 3,
+                wins: wins,
+                hints: hints
+            })
+
+            storeCumulativeData()
+        }
+
         nextButton.textContent = "See Stats"
         nextButton.onclick = function () {
             showPage("stats")
@@ -165,6 +188,14 @@ function revealNextButton() {
     }
 
     nextButton.classList.remove('hidden')
+}
+
+function cumulativeDataHasEntry(gameNumber) {
+    cumulativeData.forEach(entry => {
+        if (entry.number === gameNumber) return true;
+    })
+
+    return false;
 }
 
 function loadPuzzleFromState(index) {
@@ -181,7 +212,7 @@ function loadPuzzleFromState(index) {
     }
 
     if (currentGame.isWin) {
-        currentGuess = currentGame.solution
+        currentGuess = currentGame.solution.split('')
         checkGuess()
     } else {
         timerEnd()
@@ -270,7 +301,11 @@ function checkGuess() {
     currentGuess = []
 }
 
-function win(){
+function win() {
+    currentKeys.forEach(key => {
+        key.classList.add('changed')
+    })
+
     showAlert("Correct", true, null)
     gameState.games[gameState.currentGame].isWin = true
     storeGameStateData()
@@ -306,6 +341,7 @@ function resetGuess() {
     })
 
     currentKeys.forEach(key => {
+        key.classList.remove('changed')
         key.textContent = '';
         delete key.dataset.letter;
     })
