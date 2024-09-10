@@ -8,21 +8,24 @@ let gameState = {
             solution: "Testing",
             hint: "Practicing Code",
             isWin: false,
-            usedHint: false
+            usedHint: false,
+            wasStarted: false
         },
         {
             puzzle: "yiklcofc",
             solution: "Clockify",
             hint: "Time Keeping Platform",
             isWin: false,
-            usedHint: false
+            usedHint: false,
+            wasStarted: false
         },
         {
             puzzle: "jpakelcap",
             solution: "Applejack",
             hint: "Fruity Cereal",
             isWin: false,
-            usedHint: false
+            usedHint: false,
+            wasStarted: false
         }
     ],
     currentGame: 0,
@@ -64,21 +67,24 @@ function resetGameState() {
                 solution: puzzles[0].word,
                 hint: puzzles[0].hint,
                 isWin: false,
-                usedHint: false
+                usedHint: false,
+                wasStarted: false
             },
             {
                 puzzle: puzzles[1].scrambled,
                 solution: puzzles[1].word,
                 hint: puzzles[1].hint,
                 isWin: false,
-                usedHint: false
+                usedHint: false,
+                wasStarted: false
             },
             {
                 puzzle: puzzles[2].scrambled,
                 solution: puzzles[2].word,
                 hint: puzzles[2].hint,
                 isWin: false,
-                usedHint: false
+                usedHint: false,
+                wasStarted: false
             }
         ],
         currentGame: 0,
@@ -113,6 +119,11 @@ function startTimer() {
 
     timerStarted = true
     updateTimer((30 + (10 * (currentWordSize - 7))) * 100)
+
+    gameState.games[gameState.currentGame].wasStarted = true;
+    storeGameStateData();
+
+    updateCumulativeData()
 }
 
 function stopTimer() {
@@ -145,6 +156,8 @@ function timerEnd() {
     gameState.games[gameState.currentGame].isWin = false
     storeGameStateData()
 
+    updateCumulativeData()
+
     revealNextButton()
 }
 
@@ -162,25 +175,6 @@ function revealNextButton() {
         gameState.isComplete = true;
         storeGameStateData()
 
-        if (cumulativeDataHasEntry(gameState.gameNumber) === false) {
-            let wins = 0;
-            let hints = 0;
-
-            gameState.games.forEach(game => {
-                if (game.isWin) wins += 1;
-                if (game.usedHint) hints += 1;
-            })
-
-            cumulativeData.push({
-                number: gameState.gameNumber,
-                games: 3,
-                wins: wins,
-                hints: hints
-            })
-
-            storeCumulativeData()
-        }
-
         nextButton.textContent = "See Stats"
         nextButton.onclick = function () {
             showPage("stats")
@@ -190,12 +184,62 @@ function revealNextButton() {
     nextButton.classList.remove('hidden')
 }
 
-function cumulativeDataHasEntry(gameNumber) {
-    cumulativeData.forEach(entry => {
-        if (entry.number === gameNumber) return true;
+function updateCumulativeData() {
+    let games = 0;
+    let wins = 0;
+    let hints = 0;
+
+    gameState.games.forEach(game => {
+        if (game.wasStarted) games += 1;
+        if (game.isWin) wins += 1;
+        if (game.usedHint) hints += 1;
     })
 
-    return false;
+    let hasEntry = cumulativeDataHasEntry(gameState.gameNumber)
+    console.log("Has entry: " + hasEntry)
+
+    if (hasEntry === false) {
+        console.log("Pushing in new entry");
+
+        cumulativeData.push({
+            number: gameState.gameNumber,
+            games: games,
+            wins: wins,
+            hints: hints
+        })
+
+        storeCumulativeData()
+    } else {
+        console.log("Updating old entry");
+
+        let entryIndex = getCumulativeDataEntryIndex(gameState.gameNumber);
+
+        cumulativeData[entryIndex] = {
+            number: gameState.gameNumber,
+            games: games,
+            wins: wins,
+            hints: hints
+        }
+
+        storeCumulativeData()
+    }
+}
+
+function cumulativeDataHasEntry(gameNumber) {
+    return cumulativeData.some(entry => {
+        if (entry.number === gameNumber) {
+            console.log("Found an equal number")
+            return true;
+        } else {
+            console.log("Found no equal number")
+            return false;
+        }
+    })
+}
+
+function getCumulativeDataEntryIndex(gameNumber) {
+    const index = cumulativeData.findIndex(entry => entry.number === gameNumber);
+    return index !== -1 ? index : null;
 }
 
 function loadPuzzleFromState(index) {
@@ -310,6 +354,8 @@ function win() {
     gameState.games[gameState.currentGame].isWin = true
     storeGameStateData()
 
+    updateCumulativeData()
+
     stopTimer()
 
     revealNextButton()
@@ -360,6 +406,8 @@ function pressHint() {
 
     gameState.games[gameState.currentGame].usedHint = true
     storeGameStateData()
+
+    updateCumulativeData()
 }
 
 function activateHint() {

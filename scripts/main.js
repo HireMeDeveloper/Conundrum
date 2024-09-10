@@ -11,8 +11,10 @@ let targetGame = {}
 
 const alertContainer = document.querySelector("[data-alert-container]")
 const statsAlertContainer = document.querySelector("[data-stats-alert-container]")
-const statistics = document.querySelectorAll('.stats-grid .statistic');
 const shareButton = document.querySelector("[data-share-button]")
+
+const todaysStatisticGrid = document.querySelector("[data-statistics-today]");
+const overallStatisticGrid = document.querySelector("[data-statistics-overall]");
 
 const DICTIONARY_7LETTER = "resources/Dictionary-7Letter.csv";
 const DICTIONARY_8LETTER = "resources/Dictionary-8Letter.csv";
@@ -160,7 +162,7 @@ function showPage(pageId, oldPage = null) {
         openGame()
     }
     else if (pageId === "stats") {
-        updateStats()
+        updateAllStats()
     } else if (pageId === "welcome") {
         generateWelcomeMessage()
     } else if (pageId === "info") {
@@ -180,6 +182,8 @@ function stopInteraction() {
 
 function storeGameStateData() {
     localStorage.setItem("conundrumGameState", JSON.stringify(gameState))
+
+    updateCumulativeData()
 }
 
 function storeCumulativeData() {
@@ -202,6 +206,8 @@ function fetchGameState() {
         console.log("Game state was reset since localStorage did not contain 'conundrumGameState'")
         resetGameState()
     }
+
+    updateCumulativeData()
 
     if (gameState.hasOpenedPuzzle === true) {
         loadPuzzleFromState(gameState.currentGame)
@@ -269,40 +275,71 @@ function generateWelcomeMessage() {
     welcomeNumber.textContent = "No. " + (targetIndex + 1)
 }
 
-function updateStats() {
-    let statisticsArray = Array.from(statistics);
-
-    const playedData = statisticsArray[0].querySelector('.statistic-data');
-    const winsData = statisticsArray[1].querySelector('.statistic-data');
-    const hintsData = statisticsArray[2].querySelector('.statistic-data');
-    const gradeData = statisticsArray[3].querySelector('.statistic-data');
-
-    let played = 0;
+function updateAllStats() {
+    let daysPlayed = 1;
+    let gamesPlayed = 0;
     let wins = 0;
     let hints = 0;
+    let gradeText = "N/A";
 
-    cumulativeData.forEach(entry => {
-        played += entry.games;
-        wins += entry.wins;
-        hints += entry.hints;
+    gameState.games.forEach(game => {
+        if (game.wasStarted) gamesPlayed += 1;
+        if (game.isWin) wins += 1;
+        if (game.usedHint) hints += 1;
     })
 
-    playedData.textContent = played
-    winsData.textContent = wins
-    hintsData.textContent = hints
-
-    if (gameState.isComplete) {
-        let lastEntry = cumulativeData[cumulativeData.length - 1]
-        
-        let grade = getGrade(lastEntry.wins, lastEntry.hints)
-        gradeData.textContent = grade + '%'
-    } else {
-        gradeData.textContent = "N/A"
+    if (gamesPlayed > 0) {
+        let grade = getGrade(gamesPlayed, wins, hints)
+        gradeText = grade + "%"
     }
+
+    updateStats(todaysStatisticGrid, daysPlayed, gamesPlayed, wins, hints, gradeText)
+
+    let totalDaysPlayed = cumulativeData.length;
+    let totalGamesPlayed = 0;
+    let totalWins = 0;
+    let totalHints = 0;
+    let overallGradeText = "N/A"
+
+    cumulativeData.forEach((entry, i) => {
+        if (i === (cumulativeData.length - 1)) {
+            totalGamesPlayed += gamesPlayed;
+            totalWins += wins;
+            totalHints += hints;
+            return;
+        }
+
+        totalGamesPlayed += entry.games;
+        totalWins += entry.wins;
+        totalHints += entry.hints;
+    })
+
+    if (totalGamesPlayed > 0) {
+        let overallGrade = getGrade(totalGamesPlayed, totalWins, totalHints)
+        overallGradeText = overallGrade + "%"
+    }
+
+    updateStats(overallStatisticGrid, totalDaysPlayed, totalGamesPlayed, totalWins, totalHints, overallGradeText)
 }
 
-function getGrade(wins, hints) {
-    return (((5 * wins) - hints) / 15) * 100;
+function updateStats(statsGrid, daysPlayed, games, wins, hintsUsed, grade) {
+    let statisticsArray = Array.from(statsGrid.querySelectorAll('.statistic'));
+
+    const daysPlayedData = statisticsArray[0].querySelector('.statistic-data');
+    const gamesData = statisticsArray[1].querySelector('.statistic-data');
+    const winsData = statisticsArray[2].querySelector('.statistic-data');
+    const hintsData = statisticsArray[3].querySelector('.statistic-data');
+    const gradeData = statisticsArray[4].querySelector('.statistic-data');
+
+    daysPlayedData.textContent = daysPlayed
+    gamesData.textContent = games
+    winsData.textContent = wins
+    hintsData.textContent = hintsUsed
+    gradeData.textContent = grade
+}
+
+function getGrade(games, wins, hints) {
+    return (((5 * wins) - hints) / (games * 5)) * 100;
 }
 
 function pressShare() {

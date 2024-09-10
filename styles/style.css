@@ -170,7 +170,7 @@ button.hint.changed {
 }
 
 .statistic.large {
-    grid-column: span 3;
+    grid-column: span 4;
 }
 
 .statistic-data {
@@ -186,7 +186,7 @@ button.hint.changed {
     display: grid;
     justify-content: center;
     align-content: center;
-    grid-template-columns: repeat(3, 3em);
+    grid-template-columns: repeat(4, 4em);
     grid-template-rows: repeat(2, 4.25em);
     gap: .5em;
     margin-bottom: 1em;
