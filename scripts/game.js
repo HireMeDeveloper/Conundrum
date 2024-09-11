@@ -293,10 +293,13 @@ function loadPuzzle(index) {
 
             key.onclick = function () {
                 if (canInteract === false) return;
-                if (this.classList.contains('changed')) return;
-
-                pressButton(currentLetter.toUpperCase())
-                this.classList.add('changed');
+                if (this.classList.contains('changed')) {
+                    removeLast(currentLetter.toUpperCase())
+                    this.classList.remove('changed')
+                } else {
+                    pressButton(currentLetter.toUpperCase())
+                    this.classList.add('changed');
+                }
             }
 
             key.textContent = currentLetter.toUpperCase();
@@ -331,6 +334,58 @@ function pressButton(key) {
     console.log(currentGuess)
 
     if (currentGuess.length === currentWordSize) checkGuess()
+}
+
+function removeLast(char) {
+    let outputKeys = getAllOutputKeys()
+    let foundKey = null
+
+    for (let i = outputKeys.length - 1; i >= 0; i--){
+        let key = outputKeys[i];
+
+        if (key.textContent === char) {
+            foundKey = key;
+            break;
+        }
+    }
+
+    let keyIndex = Array.from(outputKeys).findIndex(key => key === foundKey);
+
+    outputKeys.forEach((key, i) => {
+        let next = (i === outputKeys.length - 1) ? null : outputKeys[i + 1];
+
+        if (i >= keyIndex) {
+            if (next != null) {
+                key.textContent = next.textContent;
+                if (next.hasAttribute("data-letter")) {
+                    key.dataset.letter = next.dataset.letter
+                } else {
+                    delete key.dataset.letter;
+                }
+            } else {
+                key.textContent = "";
+                key.classList.remove('changed');
+                delete key.dataset.letter;
+                remapGuess();
+            }
+        }
+    })
+}
+
+function remapGuess() {
+    currentGuess = []
+    currentKeys = []
+
+    let outputKeys = getAllOutputKeys()
+
+    outputKeys.forEach(key => {
+        if (key.textContent != '') {
+            currentGuess.push(key.textContent)
+            currentKeys.push(key)
+        }
+    })
+
+    console.log("New Guess: " + currentGuess)
 }
 
 function checkGuess() {

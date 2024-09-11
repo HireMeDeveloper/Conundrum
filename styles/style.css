@@ -128,7 +128,7 @@ button.hint.changed {
     color: black;
     background: white;
     border: .1em solid black;
-    border-radius: .4em;
+    border-radius: .1em;
     margin: .1em;
     width: 2em;
     height: 2em;
@@ -154,8 +154,6 @@ button.hint.changed {
 
 .changed {
     background-color: var(--change-color);
-    cursor: none;
-    pointer-events: none;
 }
 
 .statistic {

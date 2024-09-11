@@ -1,6 +1,10 @@
 const DATE_OF_FIRST_PUZZLE = new Date(2024, 6, 25)
 const ALLOW_MOBILE_SHARE = true; 
 
+const DICTIONARY_7LETTER = "resources/Dictionary-7Letter.csv";
+const DICTIONARY_8LETTER = "resources/Dictionary-8Letter.csv";
+const DICTIONARY_9LETTER = "resources/Dictionary-9Letter.csv";
+
 const targetWordsLength = 100
 
 const msOffset = Date.now() - DATE_OF_FIRST_PUZZLE
@@ -16,10 +20,6 @@ const playButton = document.querySelector("[data-play-button]")
 
 const todaysStatisticGrid = document.querySelector("[data-statistics-today]");
 const overallStatisticGrid = document.querySelector("[data-statistics-overall]");
-
-const DICTIONARY_7LETTER = "resources/Dictionary-7Letter.csv";
-const DICTIONARY_8LETTER = "resources/Dictionary-8Letter.csv";
-const DICTIONARY_9LETTER = "resources/Dictionary-9Letter.csv";
 
 let puzzleList = []
 
