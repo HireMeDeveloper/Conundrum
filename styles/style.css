@@ -125,7 +125,6 @@ button.hint.changed {
 }
 
 .card-button {
-    display: inline-block;
     color: black;
     background: white;
     border: .1em solid black;
