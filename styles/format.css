@@ -56,6 +56,10 @@ html {
     width: 18.5em;
 }
 
+.box.buttons {
+    width: 17.5em;
+}
+
 .text-box-info {
     width: 27em;
     display: flex;
