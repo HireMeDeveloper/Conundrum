@@ -6,12 +6,13 @@ const targetWordsLength = 100
 const msOffset = Date.now() - DATE_OF_FIRST_PUZZLE
 const dayOffset = msOffset / 1000 / 60 / 60 / 24
 const targetIndex = Math.floor(dayOffset + 0) % targetWordsLength
-const targetGameNumber = targetIndex + 1
+let targetGameNumber = targetIndex + 1
 let targetGame = {}
 
 const alertContainer = document.querySelector("[data-alert-container]")
 const statsAlertContainer = document.querySelector("[data-stats-alert-container]")
 const shareButton = document.querySelector("[data-share-button]")
+const playButton = document.querySelector("[data-play-button]")
 
 const todaysStatisticGrid = document.querySelector("[data-statistics-today]");
 const overallStatisticGrid = document.querySelector("[data-statistics-overall]");
@@ -23,6 +24,8 @@ const DICTIONARY_9LETTER = "resources/Dictionary-9Letter.csv";
 let puzzleList = []
 
 let canInteract = false;
+
+window.dataLayer = window.dataLayer || [];
 
 fetchCSV()
 
@@ -61,12 +64,13 @@ async function fetchCSV() {
 
         const msOffset = Date.now() - DATE_OF_FIRST_PUZZLE
         const dayOffset = msOffset / 1000 / 60 / 60 / 24
-        const targetIndex = Math.floor(dayOffset + 0) % puzzleList.length
+        let targetIndex = Math.floor(dayOffset + 0) % puzzleList.length
+        targetGameNumber = targetIndex
 
         targetGame = puzzleList[targetIndex]
 
-        fetchGameState()
         fetchCumulativeData()
+        fetchGameState()
     } catch (error) {
         console.error('Error reading JSON file:', error);
     }
@@ -166,7 +170,7 @@ function showPage(pageId, oldPage = null) {
     } else if (pageId === "welcome") {
         generateWelcomeMessage()
     } else if (pageId === "info") {
-
+        updateInfoPage()
     }
 
     if (oldPage != null) lastPage = oldPage
@@ -182,8 +186,6 @@ function stopInteraction() {
 
 function storeGameStateData() {
     localStorage.setItem("conundrumGameState", JSON.stringify(gameState))
-
-    updateCumulativeData()
 }
 
 function storeCumulativeData() {
@@ -196,10 +198,10 @@ function fetchGameState() {
     if (localStateJSON != null) {
         localGameState = JSON.parse(localStateJSON)
 
-        if (localGameState.gameNumber === targetGameNumber) {
+        if (localGameState.gameNumber === (targetGameNumber + 1)) {
             gameState = localGameState
         } else {
-            console.log("Game state was reset since puzzle does not match")
+            console.log("Game state was reset since puzzle does not match: " + localGameState.gameNumber + " & " + targetGameNumber)
             resetGameState()
         }
     } else {
@@ -209,19 +211,22 @@ function fetchGameState() {
 
     updateCumulativeData()
 
-    if (gameState.hasOpenedPuzzle === true) {
+    if (gameState.hasOpenedPuzzle === true || gameState.games[gameState.currentGame].wasStarted === true) {
         loadPuzzleFromState(gameState.currentGame)
         showPage("welcome")
     } else {
         loadPuzzle(gameState.currentGame)
         showPage('info')
+        
     }
 }
 
 function fetchCumulativeData() {
     const localStoreJSON = localStorage.getItem("conundrumCumulativeData")
     if (localStoreJSON != null) {
+        console.log("Cumulative Data was Found: " + localStoreJSON)
         cumulativeData = JSON.parse(localStoreJSON)
+        storeCumulativeData()
     } else {
         console.log("Cumulative Data was reset")
         resetCumulativeData()
@@ -248,6 +253,7 @@ function generateWelcomeMessage() {
         welcomeButton.textContent = "Continue"
         welcomeButton.onclick = () => {
             showPage('game')
+            fireEvent("continue-game")
         }
     } else {
         welcomeHeader.textContent = "Hello!"
@@ -255,6 +261,7 @@ function generateWelcomeMessage() {
         welcomeButton.textContent = "See Stats"
         welcomeButton.onclick = () => {
             showPage('stats')
+            fireEvent("from-welcome-to-stats")
         }
     }
 
@@ -273,6 +280,21 @@ function generateWelcomeMessage() {
     welcomeDate.textContent = formattedToday
 
     welcomeNumber.textContent = "No. " + (targetIndex + 1)
+}
+
+function updateInfoPage() {
+    if (gameState.games[0].wasStarted === false) {
+        playButton.textContent = "PLAY"
+        playButton.onclick = function () {
+            showPage("game")
+            fireEvent("play-game")
+        } 
+    } else {
+        playButton.textContent = "CONTINUE"
+        playButton.onclick = function () {
+            showPage("game")
+        } 
+    }
 }
 
 function updateAllStats() {
@@ -339,7 +361,7 @@ function updateStats(statsGrid, daysPlayed, games, wins, hintsUsed, grade) {
 }
 
 function getGrade(games, wins, hints) {
-    return (((5 * wins) - hints) / (games * 5)) * 100;
+    return ((((5 * wins) - hints) / (games * 5)) * 100).toFixed(0);
 }
 
 function pressShare() {
@@ -361,6 +383,8 @@ function pressShare() {
         navigator.clipboard.writeText(textToCopy)
         showShareAlert("Link Copied! Share with Your Friends!")
     }
+
+    fireEvent("pressed-share");
 }
 
 function detectTouchscreen() {
@@ -377,4 +401,25 @@ function detectTouchscreen() {
         }
     }
     return result
+}
+
+function fireEvent(eventName) {
+    const event = new CustomEvent(eventName)
+
+    document.dispatchEvent(event)
+    pushEventToDataLayer(event)
+
+    console.log("EVENT: " + eventName)
+}
+
+function pushEventToDataLayer(event) {
+    const eventName = event.type
+    const eventDetails = event.detail
+
+    window.dataLayer.push({
+        'event': eventName,
+        ...eventDetails
+    })
+
+    console.log(window.dataLayer)
 }

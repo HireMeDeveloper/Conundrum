@@ -170,6 +170,7 @@ function revealNextButton() {
         nextButton.textContent = "Play Next"
         nextButton.onclick = function () {
             playNext()
+            fireEvent("play-next-game");
         }
     } else {
         gameState.isComplete = true;
@@ -178,6 +179,7 @@ function revealNextButton() {
         nextButton.textContent = "See Stats"
         nextButton.onclick = function () {
             showPage("stats")
+            fireEvent("game-3-to-stats");
         }
     }
 
@@ -332,7 +334,7 @@ function pressButton(key) {
 }
 
 function checkGuess() {
-    console.log(currentGuess)
+    console.log("guess was: " + currentGuess)
 
     if (currentGuess.join('').toLowerCase() === currentSolution.toLowerCase()) {
         win()
@@ -346,8 +348,9 @@ function checkGuess() {
 }
 
 function win() {
-    currentKeys.forEach(key => {
+    getAllOutputKeys().forEach((key, i) => {
         key.classList.add('changed')
+        key.textContent = gameState.games[gameState.currentGame].solution.toUpperCase()[i]
     })
 
     showAlert("Correct", true, null)
