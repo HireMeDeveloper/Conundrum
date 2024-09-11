@@ -129,9 +129,9 @@ button.hint.changed {
     background: white;
     border: .1em solid black;
     border-radius: .1em;
-    margin: .1em;
-    width: 2em;
-    height: 2em;
+    margin: .05em;
+    width: 1.8em;
+    height: 1.8em;
     font-weight: bold;
     font-size: 1em;
     cursor: pointer;
