@@ -31,12 +31,6 @@ html {
     font-size: clamp(0.4rem, 2.65vh, 2.5em);
 }
 
-@media screen and (max-width: 600px) {
-    html {
-        font-size: clamp(0.4rem, min(4.75vw, 2.65vh), 2.5em);
-    }
-}
-
 .gap {
     margin-top: var(--amount);
 }
