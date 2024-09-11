@@ -78,6 +78,7 @@
 }
 
 .button.clear {
+    margin-left: 0.5em;
     width: 2em;
 }
 
@@ -124,6 +125,7 @@ button.hint.changed {
 }
 
 .card-button {
+    display: inline-block;
     color: black;
     background: white;
     border: .1em solid black;
