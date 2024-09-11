@@ -130,8 +130,8 @@ button.hint.changed {
     border: .1em solid black;
     border-radius: .1em;
     margin: .05em;
-    width: 1.8em;
     height: 1.8em;
+    aspect-ratio: 1/1;
     font-weight: bold;
     font-size: 1em;
     cursor: pointer;

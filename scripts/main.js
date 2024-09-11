@@ -297,6 +297,56 @@ function updateInfoPage() {
     }
 }
 
+function processStats(currentState, cumulativeState) {
+    let result = {
+        today: {
+            daysPlayed: 1,
+            gamesPlayed: 0,
+            wins: 0,
+            hints: 0,
+            gradeText: "N/A"
+        },
+        overall: {
+            daysPlayed: 0,
+            gamesPlayed: 0,
+            wins: 0,
+            hints: 0,
+            gradeText: "N/A"
+        }
+    }
+
+    currentState.games.forEach(game => {
+        if (game.wasStarted) result.today.gamesPlayed += 1;
+        if (game.isWin) result.today.wins += 1;
+        if (game.usedHint) result.today.hints += 1;
+    })
+
+    if (result.today.gamesPlayed > 0) {
+        let grade = getGrade(result.today.gamesPlayed, result.today.wins, result.today.hints)
+        result.today.gradeText = grade + "%"
+    }
+
+    cumulativeState.forEach((entry, i) => {
+        if (i === (cumulativeState.length - 1)) {
+            result.overall.gamesPlayed += result.today.gamesPlayed;
+            result.overall.wins += result.today.wins;
+            result.overall.hints += result.today.hints;
+            return;
+        }
+
+        result.overall.gamesPlayed += entry.games;
+        result.overall.wins += entry.wins;
+        result.overall.hints += entry.hints;
+    })
+
+    if (result.overall.gamesPlayed > 0) {
+        let overallGrade = getGrade(result.overall.gamesPlayed, result.overall.wins, result.overall.hints)
+        result.overall.gradeText = overallGrade + "%"
+    }
+
+    return result;
+}
+
 function updateAllStats() {
     let daysPlayed = 1;
     let gamesPlayed = 0;
