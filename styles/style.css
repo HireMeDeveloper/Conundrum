@@ -140,7 +140,6 @@ button.hint.changed {
     justify-content: center;
     align-items: center;
     text-align: center;
-    flex-shrink: 0;
 }
 
 .card-button.hidden {
