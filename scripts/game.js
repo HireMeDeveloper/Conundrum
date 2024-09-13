@@ -118,7 +118,7 @@ function startTimer() {
     startInteraction()
 
     timerStarted = true
-    updateTimer((30 + (10 * (currentWordSize - 7))) * 100)
+    updateTimer((30 + (10 * (currentWordSize - 7))) * 100, (30 + (10 * (currentWordSize - 7))) * 100)
 
     gameState.games[gameState.currentGame].wasStarted = true;
     storeGameStateData();
@@ -130,19 +130,22 @@ function stopTimer() {
     timerStarted = false
 }
 
-function updateTimer(totalHundredths) {
+function updateTimer(totalHundredths, maxTime) {
     if (timerStarted === false) return;
 
     let seconds = Math.floor(totalHundredths / 100);
     let hundredths = totalHundredths % 100;
-    let formattedTime = `${seconds}:${hundredths < 10 ? '0' + hundredths : hundredths}`;
+    let formattedHundreds = (hundredths < 10) ? ((hundredths === 0) ? '00' : '0' + hundredths) : hundredths
+    let formattedTime = `00:${(seconds < 10) ? '0' + seconds : seconds}`;
 
-    let timerText = document.querySelector('.text-timer')
-    timerText.textContent = formattedTime
+    drawCircle(totalHundredths / maxTime, formattedTime)
+
+    //let timerText = document.querySelector('.text-timer')
+    //timerText.textContent = formattedTime
 
     if (totalHundredths > 0) {
         setTimeout(() => {
-            updateTimer(totalHundredths - 1)
+            updateTimer(totalHundredths - 1, maxTime)
         }, 10)
     } else {
         timerEnd()
@@ -408,7 +411,9 @@ function win() {
         key.textContent = gameState.games[gameState.currentGame].solution.toUpperCase()[i]
     })
 
-    showAlert("Correct", true, null)
+    //showAlert("Correct", true, null)
+    drawWinCircle()
+
     gameState.games[gameState.currentGame].isWin = true
     storeGameStateData()
 

@@ -348,50 +348,10 @@ function processStats(currentState, cumulativeState) {
 }
 
 function updateAllStats() {
-    let daysPlayed = 1;
-    let gamesPlayed = 0;
-    let wins = 0;
-    let hints = 0;
-    let gradeText = "N/A";
+    const results = processStats(gameState, cumulativeData)
 
-    gameState.games.forEach(game => {
-        if (game.wasStarted) gamesPlayed += 1;
-        if (game.isWin) wins += 1;
-        if (game.usedHint) hints += 1;
-    })
-
-    if (gamesPlayed > 0) {
-        let grade = getGrade(gamesPlayed, wins, hints)
-        gradeText = grade + "%"
-    }
-
-    updateStats(todaysStatisticGrid, daysPlayed, gamesPlayed, wins, hints, gradeText)
-
-    let totalDaysPlayed = cumulativeData.length;
-    let totalGamesPlayed = 0;
-    let totalWins = 0;
-    let totalHints = 0;
-    let overallGradeText = "N/A"
-
-    cumulativeData.forEach((entry, i) => {
-        if (i === (cumulativeData.length - 1)) {
-            totalGamesPlayed += gamesPlayed;
-            totalWins += wins;
-            totalHints += hints;
-            return;
-        }
-
-        totalGamesPlayed += entry.games;
-        totalWins += entry.wins;
-        totalHints += entry.hints;
-    })
-
-    if (totalGamesPlayed > 0) {
-        let overallGrade = getGrade(totalGamesPlayed, totalWins, totalHints)
-        overallGradeText = overallGrade + "%"
-    }
-
-    updateStats(overallStatisticGrid, totalDaysPlayed, totalGamesPlayed, totalWins, totalHints, overallGradeText)
+    updateStats(todaysStatisticGrid, results.today.daysPlayed, results.today.gamesPlayed, results.today.wins, results.today.hints, results.today.gradeText)
+    updateStats(overallStatisticGrid, results.overall.daysPlayed, results.overall.gamesPlayed, results.overall.wins, results.overall.hints, results.overall.gradeText)
 }
 
 function updateStats(statsGrid, daysPlayed, games, wins, hintsUsed, grade) {

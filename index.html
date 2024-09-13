@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="styles/text.css">
     <script src="scripts/game.js" defer></script>
     <script src="scripts/main.js" defer></script>
+    <script src="scripts/timer.js" defer></script>
 </head>
 <body>
     <div id="game" class="page">
@@ -31,15 +32,10 @@
             </div>
             <div class="underline"></div>
         </div>
-        <div class="centered">
-            <div class="timer">
-                <img src="resources/timer-icon.svg" class="icon">
-                <div class="text-timer">
-                    30:00
-                </div>
-            </div>
+        <div class="centered gap" style="--amount: 1em">
+            <canvas id="circleCanvas" width="400" height="400" style="width: 6em; height: 6em;"></canvas>
         </div>
-        <div class="box left gap" style="--amount: 2.5em">
+        <div class="box left gap" style="--amount: .5em">
             <div>
                 <span class="text-game-heading">Conundrum -</span> <span class="text-game-small">press letters as required</span>
             </div>
@@ -88,7 +84,7 @@
                 Play Next
             </button>
         </div>
-        <div class="centered gap"  style="--amount: 6em">
+        <div class="centered gap"  style="--amount: 1em">
             <div class="text-game">Game</div>
         </div>
         <div class="centered text-game-number">

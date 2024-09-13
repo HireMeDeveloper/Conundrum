@@ -56,7 +56,7 @@
     height: 2.1em;
     background: black;
     border: none;
-    border-radius: .25em;
+    border-radius: 1em;
     font-weight: bold;
     font-size: 1.1em;
     justify-content: center;
@@ -99,7 +99,8 @@
 }
 
 button.hint.changed {
-    background-color: var(--change-color);
+    background-color: black;
+    color: white;
     cursor: none;
     pointer-events: none;
 }
@@ -131,7 +132,7 @@ button.hint.changed {
     border-radius: .1em;
     margin: .05em;
     width: 1.8em;
-    aspect-ratio: 1/1;
+    aspect-ratio: 1 / 1;
     font-weight: bold;
     font-size: 1em;
     cursor: pointer;
@@ -153,10 +154,12 @@ button.hint.changed {
 }
 
 .guess {
+    border: none;
     background: var(--guess-color);
 }
 
 .changed {
+    border: none;
     background-color: var(--change-color);
 }
 
