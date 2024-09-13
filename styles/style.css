@@ -154,7 +154,7 @@ button.hint.changed {
 }
 
 .guess {
-    border: none;
+    border: .1em solid var(--guess-color);
     background: var(--guess-color);
 }
 
