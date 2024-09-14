@@ -26,8 +26,22 @@
 }
 
 .text-game-number {
-    font-size: .7em;
+    font-size: 1em;
     font-weight: bold;
+}
+
+.text-game-letters {
+    font-size: .8em;
+}
+
+.text-game-answer {
+    font-size: .8em;
+}
+
+.text-game-solution {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--answer-color);
 }
 
 .text-info-title {
@@ -50,16 +64,17 @@
 }
 
 .text-welcome-title {
-    font-weight: bold;
-    font-size: 2.25em;
+    font-weight: bolder;
+    font-size: 1.2em;
 }
 
 .text-welcome-subtitle {
+    font-size: 0.8em;
     font-weight: bold;
-    font-size: 1em;
 }
 
 .text-welcome-date {
+    font-weight: bold;
     font-size: 0.8em;
 }
 

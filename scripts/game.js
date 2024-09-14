@@ -48,10 +48,18 @@ const DANCE_ANIMATION_DURATION = 500
 
 const keyboard = document.querySelector("[data-keyboard]")
 const guessboard = document.querySelector("[data-guessboard]")
-const hintButton = document.querySelector("[data-hint-button]")
-const hintText = document.querySelector("[data-hint-text]")
-const nextButton = document.querySelector("[data-next-button]")
+
 const gameText = document.querySelector("[data-game-text]")
+const gameLettersText = document.querySelector("[data-game-letters]")
+const answerElement = document.querySelector("[data-answer-element]")
+const answerText = document.querySelector("[data-answer-text]")
+const canvas = document.getElementById('circleCanvas');
+
+const buttonOne = document.querySelector("[data-button-one]")
+const textOne = document.querySelector("[data-text-one]")
+
+const buttonTwo = document.querySelector("[data-button-two]")
+const textTwo = document.querySelector("[data-text-two]")
 
 function loadGame() {
     
@@ -153,7 +161,7 @@ function updateTimer(totalHundredths, maxTime) {
 }
 
 function timerEnd() {
-    showAlert(currentSolution, false, null)
+    //showAlert(currentSolution, false, null)
     timerStarted = false
 
     gameState.games[gameState.currentGame].isWin = false
@@ -161,32 +169,28 @@ function timerEnd() {
 
     updateCumulativeData()
 
-    revealNextButton()
+    updateGameButtons(false)
+
+    updateTimerDisplay(false)
 }
 
-function revealNextButton() {
-    stopInteraction()
+function updateTimerDisplay(hasWon) {
+    if (hasWon) {
+        canvas.classList.remove('no-display')
+        answerElement.classList.add('no-display')
 
-    nextButton.onclick = null
-
-    if (gameState.currentGame <= 1) {
-        nextButton.textContent = "Play Next"
-        nextButton.onclick = function () {
-            playNext()
-            fireEvent("play-next-game");
-        }
+        drawWinCircle()
     } else {
-        gameState.isComplete = true;
-        storeGameStateData()
+        canvas.classList.add('no-display')
+        answerElement.classList.remove('no-display')
 
-        nextButton.textContent = "See Stats"
-        nextButton.onclick = function () {
-            showPage("stats")
-            fireEvent("game-3-to-stats");
-        }
+        answerText.textContent = currentSolution
     }
+}
 
-    nextButton.classList.remove('hidden')
+function enableTimerDisplay() {
+    canvas.classList.remove('no-display')
+    answerElement.classList.add('no-display')
 }
 
 function updateCumulativeData() {
@@ -254,6 +258,8 @@ function loadPuzzleFromState(index) {
         storeGameStateData()
     } 
 
+    updateGameButtons(false)
+
     let currentGame = gameState.games[gameState.currentGame]
 
     if (currentGame.usedHint) {
@@ -270,6 +276,8 @@ function loadPuzzleFromState(index) {
 }
 
 function loadPuzzle(index) {
+    updateGameButtons(true)
+
     const activeGame = gameState.games[index]
     gameState.currentGame = index
     storeGameStateData()
@@ -281,8 +289,6 @@ function loadPuzzle(index) {
 
     const inputKeys = getAllInputKeys()
     const outputKeys = getAllOutputKeys()
-
-    nextButton.classList.add('hidden')
 
     inputKeys.forEach((key, i) => {
         let currentLetter = currentPuzzle.charAt(i)
@@ -412,7 +418,7 @@ function win() {
     })
 
     //showAlert("Correct", true, null)
-    drawWinCircle()
+    updateTimerDisplay(true)
 
     gameState.games[gameState.currentGame].isWin = true
     storeGameStateData()
@@ -421,7 +427,7 @@ function win() {
 
     stopTimer()
 
-    revealNextButton()
+    updateGameButtons(false)
 }
 
 function shakeKeys(keys) {
@@ -459,13 +465,13 @@ function resetGuess() {
     currentGuess = []
 }
 
-function pressHint() {
+function pressHint(button, text) {
     if (canInteract === false) return;
-    if (hintButton.classList.contains('changed')) return
+    if (button.classList.contains('changed')) return
 
-    hintButton.classList.add('changed')
-    hintText.classList.remove('hidden')
-    hintText.textContent = currentHint
+    button.classList.add('changed')
+    text.classList.remove('hidden')
+    text.textContent = currentHint
 
     gameState.games[gameState.currentGame].usedHint = true
     storeGameStateData()
@@ -474,9 +480,9 @@ function pressHint() {
 }
 
 function activateHint() {
-    hintButton.classList.add('changed')
-    hintText.classList.remove('hidden')
-    hintText.textContent = currentHint
+    buttonTwo.classList.add('changed')
+    textTwo.classList.remove('hidden')
+    textTwo.textContent = currentHint
 
     gameState.games[gameState.currentGame].usedHint = true
     storeGameStateData()
@@ -486,16 +492,82 @@ function playNext() {
     clearAlerts()
     resetGuess()
 
-    hintButton.classList.remove('changed')
-    hintText.classList.add('hidden')
+    enableTimerDisplay()
 
     const currentGameNumber = gameState.currentGame
     loadPuzzle(currentGameNumber + 1)
     timerStarted = false;
+
+    updateGameButtons(true)
     
     startTimer()
 }
 
 function updateGameText() {
-    gameText.textContent = (gameState.currentGame + 1) + " of 3"
+    gameText.textContent = "Game " + (gameState.currentGame + 1) + "/3"
+    if (gameState.currentGame === 0) {
+        gameLettersText.textContent = "7 Letters"
+    } else if (gameState.currentGame === 1) {
+        gameLettersText.textContent = "8 Letters"
+    } else {
+        gameLettersText.textContent = "9 Letters"
+    }
+}
+
+function updateGameButtons(duringGame) {
+    buttonOne.onclick = null
+    buttonOne.classList.remove('hint')
+    buttonOne.classList.remove('changed')
+    buttonOne.classList.remove('play-again')
+    textOne.classList.add('hidden')
+
+    buttonTwo.onclick = null
+    buttonTwo.classList.remove('hint')
+    buttonTwo.classList.remove('changed')
+    buttonTwo.classList.remove('play-again')
+    textTwo.classList.add('hidden')
+
+    if (duringGame) {
+        buttonOne.classList.add('hint')
+        buttonOne.textContent = "Clear";
+        buttonOne.onclick = function () {
+            clearGuess()
+        }
+
+        buttonTwo.classList.add('hint')
+        buttonTwo.textContent = "Hint"
+        buttonTwo.onclick = function () {
+            pressHint(buttonTwo, textTwo)
+        }
+
+    } else {
+        stopInteraction()
+
+        buttonOne.classList.add('hint')
+        buttonOne.textContent = "Hint"
+        if (gameState.games[gameState.currentGame].usedHint) {
+            buttonOne.classList.add('changed')
+            textOne.classList.remove('hidden')
+            textOne.textContent = currentHint
+        }
+
+        buttonTwo.classList.add('play-again')
+
+        if (gameState.currentGame <= 1) {
+            buttonTwo.textContent = "Play Next"
+            buttonTwo.onclick = function () {
+                playNext()
+                fireEvent("play-next-game");
+            }
+        } else {
+            gameState.isComplete = true;
+            storeGameStateData()
+
+            buttonTwo.textContent = "See Stats"
+            buttonTwo.onclick = function () {
+                showPage("stats")
+                fireEvent("game-3-to-stats");
+            }
+        }
+    }
 }

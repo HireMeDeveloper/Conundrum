@@ -53,12 +53,11 @@
 }
 
 .button {
-    height: 2.1em;
+    height: 2.5em;
     background: black;
     border: none;
-    border-radius: 1em;
-    font-weight: bold;
-    font-size: 1.1em;
+    border-radius: 2em;
+    font-size: 0.8em;
     justify-content: center;
     color: white;
     cursor: pointer;
@@ -67,6 +66,10 @@
 .button.play {
     width: 9em;
     margin-top: 1.60em;
+}
+
+.button.welcome {
+    width: 9em;
 }
 
 .button.share {
@@ -78,21 +81,14 @@
 }
 
 .button.clear {
-    margin-left: 0.5em;
-    width: 2em;
-}
-
-.button.play-again {
-    width: 9em;
-}
-
-.button.play-again.hidden {
-    visibility: hidden;
-    pointer-events: none;
+    width: 6em;
+    color: black;
+    background: white;
+    border: solid black .1em;
 }
 
 .button.hint {
-    width: 9em;
+    width: 6em;
     color: black;
     background: white;
     border: solid black .1em;
@@ -102,6 +98,15 @@ button.hint.changed {
     background-color: black;
     color: white;
     cursor: none;
+    pointer-events: none;
+}
+
+.button.play-again {
+    width: 9em;
+}
+
+.button.play-again.hidden {
+    visibility: hidden;
     pointer-events: none;
 }
 

@@ -11,7 +11,7 @@
     <script src="scripts/main.js" defer></script>
     <script src="scripts/timer.js" defer></script>
 </head>
-<body>
+<body class="off-white">
     <div id="game" class="page">
         <div>
             <div class="alert-container" data-alert-container></div>
@@ -32,15 +32,24 @@
             </div>
             <div class="underline"></div>
         </div>
-        <div class="centered gap" style="--amount: 1em">
-            <canvas id="circleCanvas" width="400" height="400" style="width: 6em; height: 6em;"></canvas>
-        </div>
-        <div class="box left gap" style="--amount: .5em">
-            <div>
-                <span class="text-game-heading">Conundrum -</span> <span class="text-game-small">press letters as required</span>
+        <div class="centered gap" style="--amount: 2em;">
+            <canvas class="" id="circleCanvas" width="400" height="400" style="width: 6em; height: 6em;"></canvas>
+            <div class="no-display" style="height: 6em;" data-answer-element>
+                <div class="text-game-answer">Answer:</div>
+                <div class="text-game-solution" data-answer-text>Example</div>
             </div>
         </div>
-        <div class="box gap" style="--amount: .25em" data-keyboard>
+        <div class="gap centered" style="--amount: 1em">
+            <div class="text-game-heading centered">
+                Conundrum
+            </div>
+        </div>
+        <div>
+            <div class=" text-game-small centered">
+                Press letters as required
+            </div>
+        </div>
+        <div class="box gap" style="--amount: .5em" data-keyboard>
             <button class="card-button">A</button>
             <button class="card-button">A</button>
             <button class="card-button">A</button>
@@ -51,12 +60,12 @@
             <button class="card-button">A</button>
             <button class="card-button">A</button>
         </div>
-        <div class="box left gap" style="--amount: 2.5em">
-            <div class="text-game-heading">
+        <div class="gap centered" style="--amount: 2.5em">
+            <div class="text-game-heading centered">
                 Your Guess
             </div>
         </div>
-        <div class="box gap" style="--amount: .25em" data-guessboard>
+        <div class="box gap" style="--amount: .5em" data-guessboard>
             <button class="card-button non-interactive guess"></button>
             <button class="card-button non-interactive guess"></button>
             <button class="card-button non-interactive guess"></button>
@@ -67,76 +76,73 @@
             <button class="card-button non-interactive guess"></button>
             <button class="card-button non-interactive guess"></button>
         </div>
-        <div class="box gap" style="--amount: 3em">
-            <div class="centered">
-                <button class="button hint" onclick="pressHint()" data-hint-button>Hint</button>
+        <div>
+            <div class="centered gap" style="--amount: .5em" >
+                <button class="button hint" onclick="pressHint()" data-button-one>Hint</button>
             </div>
-            <div class="centered">
-                <button class="button clear centered" onclick="clearGuess()">X</button>
+            <div class="centered text-game-hint gap hidden" style="--amount: .5em" data-text-one>
+                None
             </div>
         </div>
-        <div class="centered text-game-hint gap hidden"  style="--amount: .5em" data-hint-text>
-            None
-        </div>
-        <div class="centered underline game gap" style="--amount: .25em"></div>
-        <div class="centered gap" style="--amount: 1em">
-            <button class="button play-again hidden" data-next-button>
-                Play Next
-            </button>
+        <div>
+            <div class="centered gap" style="--amount: 1em">
+                <button class="button play-again" data-button-two>Play Next</button>
+            </div>
+            <div class="centered text-game-hint gap hidden" style="--amount: .5em" data-text-two>
+                None
+            </div>
         </div>
         <div class="centered gap"  style="--amount: 1em">
-            <div class="text-game">Game</div>
+            <div class="text-game-number" data-game-text>Game</div>
         </div>
-        <div class="centered text-game-number">
-            <div data-game-text>1 of 3</div>
+        <div class="centered text-game-letters">
+            <div data-game-letters>1 of 3</div>
         </div>
     </div>
     <div id="info" class="page active">
-        <div>
-            <div class="header">
-                <div>
-                    <img src="resources/Conundrum horizontal.svg" class="conundrum-horizontal-icon">
-                </div>
-                <div>
-                    <a>
-                        <img src="resources/info-icon.svg" class="icon hidden">
-                    </a>
-                </div>
-                <div>
-                    <a onclick="showPage('stats')">
-                        <img src="resources/stats-icon.svg" class="icon">
-                    </a>
-                </div>
-            </div>
-            <div class="underline"></div>
-        </div>
-        <div class="text-info-title gap" style="--amount: 1em">
+        <div class="text-info-title gap centered" style="--amount: 3em">
             How To Play
         </div>
-        <div class="text-info-heading gap" style="--amount: 1.2em">
-            A daily game with 3 puzzles
+        <div class="centered">
+            <div class="text-box-info heading gap centered" style="--amount: 1.1em">
+                A daily game with a 7, 8, and 9 word <br>conundrum
+            </div>
         </div>
-        <div class="text-box-info gap" style="--amount: 1.2em">
-            In game 1 you are given 7 letters. Your task is to arrange all of those letters to form a word. This will require lateral thinking. You have 30 seconds to guess the correct answer.
+        <div class="centered">
+            <div class="text-box-info gap centered" style="--amount: 1.1em">
+                In game 1 you are given 7 letters.<br> Your task is to arrange all of those letters to <br>form a word. This will require
+                lateral thinking.<br> You have 30 seconds to guess the correct <br>answer.
+            </div>
         </div>
-        <div class="text-box-info gap" style="--amount: 1em">
-            Game 2 has 8 letters and you have 40 seconds. Game 3 you have 9 letters and 50 seconds.
+        <div class="centered">
+            <div class="text-box-info gap centered" style="--amount: 1em">
+                Game 2 has 8 letters and you have<br> 40 seconds. Game 3 you have 9 letters<br> and 50 seconds.
+            </div>
         </div>
-        <div class="text-info-heading gap" style="--amount: 1.2em">
-            Hints
+        <div class="centered">
+            <div class="text-box-info heading gap centered" style="--amount: 1.1em">
+                Hints
+            </div>
         </div>
-        <div class="text-box-info gap" style="--amount: .2em">
-            A hint button is included to help you guess the word. However your grading will recieve a penalty if you use the Hint function!
+        <div class="centered">
+            <div class="text-box-info gap centered" style="--amount: .2em">
+                A hint button is included to help you guess<br> the word. However your grading will recieve<br> a penalty if you use the
+                Hint function!
+            </div>
         </div>
-        <div class="text-info-heading gap" style="--amount: 1.2em">
-            Results
+        <div class="centered">
+            <div class="text-box-info heading gap centered" style="--amount: 1.1em">
+                Results
+            </div>
         </div>
-        <div class="text-box-info gap" style="--amount: .2em">
-            After three daily rounds, you receive a grading.
+        <div class="centered">
+            <div class="text-box-info gap centered" style="--amount: .2em">
+                After three daily rounds, you receive<br> a grading.
+            </div>
         </div>
-        <div class="centered gap" style="--amount: 6em">
+        <div class="centered gap" style="--amount: 1.5em">
             <button class="button play" data-play-button>
-                PLAY
+                Play
             </button>
         </div>
     </div>
@@ -218,38 +224,24 @@
         </div>
     </div>
     <div id="welcome" class="page">
-        <div class="header">
-            <div>
-                <img src="resources/Conundrum horizontal.svg" class="conundrum-horizontal-icon">
-            </div>
-            <div>
-                <a>
-                    <img src="resources/info-icon.svg" class="icon hidden">
-                </a>
-            </div>
-            <div>
-                <a>
-                    <img src="resources/stats-icon.svg" class="icon hidden">
-                </a>
-            </div>
+        <div class="centered gap" style="--amount: 5em">
+            <img src="resources/Conundrum vertical.svg" class="welcome-header" alt="">
         </div>
-        <div class="underline"></div>
-        <div class="text-welcome-title gap centered" style="--amount: 2em" data-welcome-header>
+        <div class="text-welcome-title gap centered" style="--amount: 3em" data-welcome-header>
             None
         </div>
-        <div class="text-box-welcome gap centered" style="--amount: 2em" data-welcome-message>
+        <div class="text-box-welcome long gap centered" style="--amount: 0.5em" data-welcome-message>
             None
         </div>
-
-        <div class="centered gap" style="--amount: 3em">
-            <button class="button play" onclick="showPage('game')" data-welcome-button>
+        <div class="centered gap" style="--amount: 14em">
+            <button class="button welcome" onclick="showPage('game')" data-welcome-button>
                 None
             </button>
         </div>
-        <div class="text-welcome-date gap centered" style="--amount: 1em" data-welcome-date>
+        <div class="text-welcome-date gap centered" style="--amount: 1.25em" data-welcome-date>
             None
         </div>
-        <div class="text-welcome-puzzle centered" data-welcome-number>
+        <div class="text-welcome-puzzle centered" data-welcome-number style="visibility: hidden;">
             None
         </div>
     </div>

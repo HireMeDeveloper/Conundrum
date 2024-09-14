@@ -163,17 +163,28 @@ function showPage(pageId, oldPage = null) {
 
     document.getElementById(pageId).classList.add('active')
     if (pageId === "game") {
+        updateBodyColor(true)
         openGame()
     }
     else if (pageId === "stats") {
+        updateBodyColor(false)
         updateAllStats()
     } else if (pageId === "welcome") {
+        updateBodyColor(false)
         generateWelcomeMessage()
     } else if (pageId === "info") {
+        updateBodyColor(false)
         updateInfoPage()
     }
 
     if (oldPage != null) lastPage = oldPage
+}
+
+function updateBodyColor(isWhite) {
+    document.body.classList.remove('white')
+    document.body.classList.remove('off-white')
+
+    document.body.classList.add((isWhite) ? 'white' : 'off-white')
 }
 
 function startInteraction() {
@@ -249,15 +260,17 @@ function generateWelcomeMessage() {
 
     if (gameState.isComplete != true) {
         welcomeHeader.textContent = "Welcome Back"
-        welcomeMessage.textContent = "Click below to finish todays game."
+        welcomeMessage.innerHTML = "Click below to finish todays game."
+        welcomeMessage.classList.add('long')
         welcomeButton.textContent = "Continue"
         welcomeButton.onclick = () => {
             showPage('game')
             fireEvent("continue-game")
         }
     } else {
-        welcomeHeader.textContent = "Hello!"
-        welcomeMessage.textContent = "There will be another Conundrum tomorrow. See you then!"
+        welcomeHeader.textContent = "Hello"
+        welcomeMessage.innerHTML = "There will be another <br> Conundrum tomorrow.<br> See you then!"
+        welcomeMessage.classList.remove('long')
         welcomeButton.textContent = "See Stats"
         welcomeButton.onclick = () => {
             showPage('stats')
@@ -284,13 +297,13 @@ function generateWelcomeMessage() {
 
 function updateInfoPage() {
     if (gameState.games[0].wasStarted === false) {
-        playButton.textContent = "PLAY"
+        playButton.textContent = "Play"
         playButton.onclick = function () {
             showPage("game")
             fireEvent("play-game")
         } 
     } else {
-        playButton.textContent = "CONTINUE"
+        playButton.textContent = "Continue"
         playButton.onclick = function () {
             showPage("game")
         } 
