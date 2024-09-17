@@ -312,17 +312,17 @@ function updateInfoPage() {
     }
 }
 
-function processStats(currentState, cumulativeState) {
+function processStats(cumulativeState) {
     let result = {
         today: {
-            daysPlayed: 1,
+            streak: 0,
             gamesPlayed: 0,
             wins: 0,
             hints: 0,
             gradeText: "N/A"
         },
         overall: {
-            daysPlayed: 0,
+            daysPlayed: cumulativeState.length,
             gamesPlayed: 0,
             wins: 0,
             hints: 0,
@@ -330,29 +330,42 @@ function processStats(currentState, cumulativeState) {
         }
     }
 
-    currentState.games.forEach(game => {
-        if (game.wasStarted) result.today.gamesPlayed += 1;
-        if (game.isWin) result.today.wins += 1;
-        if (game.usedHint) result.today.hints += 1;
-    })
-
-    if (result.today.gamesPlayed > 0) {
-        let grade = getGrade(result.today.gamesPlayed, result.today.wins, result.today.hints)
-        result.today.gradeText = grade + "%"
-    }
-
     cumulativeState.forEach((entry, i) => {
+        let lastEntry = null
+        if (i !== 0) {
+            lastEntry = cumulativeState[i - 1];
+        }
+
+        let isNext = true;
+        if (lastEntry !== null) {
+            let currentNumber = Number(entry.number)
+            let lastNumber = Number(lastEntry.number)
+            isNext = (currentNumber === (lastNumber + 1))
+
+            //console.log("Current Number: " + currentNumber + " LastNumber: " + lastNumber + " isNext: " + isNext)
+        }
+
+        if (isNext) {
+            result.today.streak += 1
+        } else {
+            result.today.streak = 1
+        }
+
         if (i === (cumulativeState.length - 1)) {
-            result.overall.gamesPlayed += result.today.gamesPlayed;
-            result.overall.wins += result.today.wins;
-            result.overall.hints += result.today.hints;
-            return;
+            result.today.gamesPlayed += entry.games;
+            result.today.wins += entry.wins;
+            result.today.hints += entry.hints;
         }
 
         result.overall.gamesPlayed += entry.games;
         result.overall.wins += entry.wins;
         result.overall.hints += entry.hints;
     })
+
+    if (result.today.gamesPlayed > 0) {
+        let grade = getGrade(result.today.gamesPlayed, result.today.wins, result.today.hints)
+        result.today.gradeText = grade + "%"
+    }
 
     if (result.overall.gamesPlayed > 0) {
         let overallGrade = getGrade(result.overall.gamesPlayed, result.overall.wins, result.overall.hints)
@@ -363,9 +376,9 @@ function processStats(currentState, cumulativeState) {
 }
 
 function updateAllStats() {
-    const results = processStats(gameState, cumulativeData)
+    const results = processStats(cumulativeData)
 
-    updateStats(todaysStatisticGrid, results.today.daysPlayed, results.today.gamesPlayed, results.today.wins, results.today.hints, results.today.gradeText)
+    updateStats(todaysStatisticGrid, results.today.streak, results.today.gamesPlayed, results.today.wins, results.today.hints, results.today.gradeText)
     updateStats(overallStatisticGrid, results.overall.daysPlayed, results.overall.gamesPlayed, results.overall.wins, results.overall.hints, results.overall.gradeText)
 }
 
@@ -396,7 +409,7 @@ function pressShare() {
     }
 
     let lastEntry = cumulativeData[cumulativeData.length - 1]
-    let grade = getGrade(lastEntry.wins, lastEntry.hints)
+    let grade = getGrade(lastEntry.games, lastEntry.wins, lastEntry.hints)
 
     let textToCopy = "Try Conundrum! No. " + targetGame.number + " " + "\n" + " My Grade was " + grade + "%" 
 

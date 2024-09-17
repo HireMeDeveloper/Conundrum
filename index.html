@@ -10,6 +10,7 @@
     <script src="scripts/game.js" defer></script>
     <script src="scripts/main.js" defer></script>
     <script src="scripts/timer.js" defer></script>
+    <script src="scripts/unitTesting.js" defer></script>
 </head>
 <body class="off-white">
     <div id="game" class="page">
@@ -126,7 +127,7 @@
         </div>
         <div class="centered">
             <div class="text-box-info gap centered" style="--amount: .2em">
-                A hint button is included to help you guess<br> the word. However your grading will recieve<br> a penalty if you use the
+                A hint button is included to help you guess<br> the word. However your grading will receive<br> a penalty if you use the
                 Hint function!
             </div>
         </div>
@@ -159,8 +160,8 @@
                     </a>
                 </div>
                 <div>
-                    <a>
-                        <img src="resources/stats-icon.svg" class="icon hidden">
+                    <a onclick="showPage('game')">
+                        <img src="resources/x-symbol.svg" class="icon">
                     </a>
                 </div>
             </div>
@@ -172,7 +173,7 @@
         <div class="stats-grid" data-statistics-today>
             <div class="statistic">
                 <h4 class="statistic-data">0</h4>
-                <p class="statistic-label">Days Played</p>
+                <p class="statistic-label">Current Streak</p>
             </div>
             <div class="statistic">
                 <h4 class="statistic-data">0</h4>

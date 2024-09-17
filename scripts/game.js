@@ -490,7 +490,6 @@ function checkGuess() {
         win()
     } else {
         shakeKeys(currentKeys)
-        resetGuess()
     }
 
     currentKeys = []
@@ -527,8 +526,6 @@ function shakeKeys(keys) {
         key.classList.add("shake")
         key.addEventListener("animationend", () => {
             key.classList.remove("shake")
-
-            inputKeys[i].classList.remove('changed')
         }, { once: true })
     });
 }
