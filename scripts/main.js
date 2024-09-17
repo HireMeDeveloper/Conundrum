@@ -188,6 +188,8 @@ function updateBodyColor(isWhite) {
 }
 
 function startInteraction() {
+    document, addEventListener("keydown", handleKeyPress)
+
     canInteract = true
 }
 

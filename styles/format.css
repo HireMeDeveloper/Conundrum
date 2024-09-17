@@ -1,13 +1,26 @@
 @font-face {
-    font-family: 'conundrum';
-    src: url();
+    font-family: Clairseach;
+    src: url(../fonts/Clairseach-Black.otf) format('opentype');
+    font-weight: bolder;
+}
+
+@font-face {
+    font-family: Clairseach;
+    src: url(../fonts/Clairseach-Bold.otf) format('opentype');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: Clairseach;
+    src: url(../fonts/Clairseach-Regular.otf) format('opentype');
+    font-weight: normal;
 }
 
 *,
 *::after,
 *::before {
     box-sizing: border-box;
-    font-family: 'Times New Roman', Times, serif;
+    font-family: Clairseach;
 }
 
 :root {
@@ -78,14 +91,14 @@ html {
 }
 
 .text-box-info {
-    width: 20em;
+    width: 22em;
     display: flex;
     justify-content: left;
     font-size: .8em;
 }
 
 .text-box-info.heading {
-    width: 16em;
+    width: 20em;
     font-weight: bolder;
     font-size: 0.8em;
 }

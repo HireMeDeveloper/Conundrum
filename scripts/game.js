@@ -331,6 +331,92 @@ function getAllOutputKeys() {
     return guessboard.querySelectorAll('*');
 }
 
+function handleKeyPress(e) {
+    if (canInteract) {
+        if (e.key === "Delete") {
+            resetGuess()
+            return
+        }
+
+        if (e.key === "Backspace") {
+            deleteLast()
+            return
+        }
+
+        if (e.key.match(/^[a-z]$/)) {
+            keyboardPressButton(e.key)
+            return
+        } else if (e.key.match(/^[A-Z]$/)) {
+            keyboardPressButton(e.key.toLowerCase())
+            return
+        }
+    } else {
+        if (e.key === "Enter" && gameState.currentGame < 2) {
+            playNext()
+        }
+    }
+}
+
+function deleteLast() {
+    let outputKeys = getAllOutputKeys();
+    let inputKeys = getAllInputKeys();
+
+    let outputMatch = null;
+
+    for (let i = outputKeys.length - 1; i >= 0; i--) {
+        let key = outputKeys[i];
+
+        if (key.hasAttribute("data-letter")) {
+            outputMatch = key;
+            break;
+        }
+    }
+
+    if (outputMatch != null) {
+        let inputMatch = null;
+
+        for (let i = inputKeys.length - 1; i >= 0; i--) {
+            let inputKey = inputKeys[i];
+            if (inputKey.classList.contains('changed') === false) continue;
+            if (inputKey.textContent.toLowerCase() === outputMatch.textContent.toLowerCase()) {
+
+                inputMatch = inputKey;
+                break;
+            }
+        }
+
+        if (inputMatch != null) {
+            inputMatch.classList.remove('changed')
+
+            delete outputMatch.dataset.letter;
+            outputMatch.textContent = ''
+
+            remapGuess()
+        }
+    }
+}
+
+function keyboardPressButton(key) {
+    if (currentPuzzle.toLowerCase().includes(key) === false) return;
+
+    let inputKeys = getAllInputKeys()
+    let firstMatch = null
+
+    for (let i = 0; i < inputKeys.length; i++) {
+        let inputKey = inputKeys[i]
+        if (inputKey.classList.contains('changed')) continue;
+        if (inputKey.textContent.toLowerCase() === key) {
+            firstMatch = inputKey
+            break;
+        }
+    }
+
+    if (firstMatch != null) {
+        firstMatch.classList.add('changed');
+        pressButton(key);
+    }
+}
+
 function pressButton(key) {
     if (canInteract === false) return;
 
@@ -413,8 +499,12 @@ function checkGuess() {
 
 function win() {
     getAllOutputKeys().forEach((key, i) => {
-        key.classList.add('changed')
+        //key.classList.add('changed')
         key.textContent = gameState.games[gameState.currentGame].solution.toUpperCase()[i]
+    })
+
+    getAllInputKeys().forEach((key, i) => {
+        if (key.classList.contains('changed') === false) key.classList.add('changed')
     })
 
     //showAlert("Correct", true, null)
