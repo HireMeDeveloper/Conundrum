@@ -35,32 +35,24 @@ async function fetchCSV() {
         const csvText1 = await responseCSV1.text();
         let words7letter = parseCSV(csvText1);
 
-        //const responseCSV2 = await fetch(DICTIONARY_8LETTER);
-        //const csvText2 = await responseCSV2.text();
-        //let words8letter = parseCSV(csvText2);
+        const responseCSV2 = await fetch(DICTIONARY_8LETTER);
+        const csvText2 = await responseCSV2.text();
+        let words8letter = parseCSV(csvText2);
 
-        //const responseCSV3 = await fetch(DICTIONARY_9LETTER);
-        //const csvText3 = await responseCSV3.text();
-        //let words9letter = parseCSV(csvText3);
+        const responseCSV3 = await fetch(DICTIONARY_9LETTER);
+        const csvText3 = await responseCSV3.text();
+        let words9letter = parseCSV(csvText3);
 
-        words7letter.forEach((puzzle, i) => {
+        for (let i = 0; i < words7letter.length; i++){
             puzzleList.push({
                 puzzles: [
-                    puzzle,
-                    {
-                        word: "clockify",
-                        hint: "time keeping platfrom",
-                        scrambled: "yfoccilk"
-                    },
-                    {
-                        word: "applejack",
-                        hint: "fruity cereal",
-                        scrambled: "lepapkacj"
-                    }
+                    words7letter[i],
+                    words8letter[i],
+                    words9letter[i],
                 ],
                 number: i + 1
             })
-        })
+        }
 
         const msOffset = Date.now() - DATE_OF_FIRST_PUZZLE
         const dayOffset = msOffset / 1000 / 60 / 60 / 24
@@ -77,16 +69,16 @@ async function fetchCSV() {
 }
 
 function parseCSV(data) {
-    const lines = data.trim().split('\n');
+    const lines = data.trim().split('\n');  // Split the input into lines and remove any trailing whitespace
     const result = [];
 
-    for (let i = 1; i < lines.length; i++) { // Start from 1 to skip the header
-        const [word, hint, scrambled, count, random] = lines[i].split(',');
+    for (let i = 1; i < lines.length; i++) {  // Start from 1 to skip the header row
+        const [word, hint, scrambled] = lines[i].split(',');  // Split each line by commas
 
         result.push({
-            word: word.trim(),
-            hint: hint.trim(),
-            scrambled: scrambled.trim()
+            word: word.trim(),         // Remove any surrounding whitespace from the word
+            hint: hint.trim(),         // Remove any surrounding whitespace from the hint
+            scrambled: scrambled.trim()  // Remove any surrounding whitespace from the scrambled word
         });
     }
 
@@ -411,7 +403,7 @@ function pressShare() {
     let lastEntry = cumulativeData[cumulativeData.length - 1]
     let grade = getGrade(lastEntry.games, lastEntry.wins, lastEntry.hints)
 
-    let textToCopy = "Try Conundrum! No. " + targetGame.number + " " + "\n" + " My Grade was " + grade + "%" 
+    let textToCopy = "Try Conundrum! \nwww.independent.ie/conundrum \n Puzzle: " + targetGame.number + " " + "\n" + " My score today: " + grade + "%" 
 
     if (navigator.share && detectTouchscreen() && ALLOW_MOBILE_SHARE) {
         navigator.share({

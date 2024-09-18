@@ -309,14 +309,14 @@ function loadPuzzle(index) {
                     pressButton(currentLetter.toUpperCase())
                     this.classList.add('changed');
                 }
-            }
+            };
 
             key.textContent = currentLetter.toUpperCase();
         } else {
             key.classList.add('hidden')
             outputKey.classList.add('hidden')
 
-            key.onclick = null
+            key.onclick = null;
         }
     })
 

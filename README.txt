@@ -23,7 +23,3 @@ Notes on Implementation:
 Testing:
 
 Questions:
-    Clear/Backspace Button:
-        The current design did not include any information about backspace or clearing the current guess.  
-        I have made the guess auto submit when full, and also added a temporary clear button to the right of the hint button.
-        Do you have a design for a clear/backspace button for the game page?

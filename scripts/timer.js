@@ -12,7 +12,7 @@ function drawCircle(value, text) {
     ctx.beginPath();
     ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
     ctx.strokeStyle = '#ccebe6'; // Fill color
-    ctx.lineWidth = 12;
+    ctx.lineWidth = 20;
     ctx.stroke();
     ctx.closePath();
 
@@ -23,7 +23,7 @@ function drawCircle(value, text) {
     ctx.beginPath();
     ctx.arc(centerX, centerY, radius, 0 + endAngle + offest, twoPI + offest, false);
     ctx.strokeStyle = '#009982'; // Fill color
-    ctx.lineWidth = 12;
+    ctx.lineWidth = 20;
     ctx.stroke();
     ctx.closePath();
 
