@@ -34,7 +34,7 @@
 
 body {
     background-color: white;
-    margin: 0em;
+    margin: auto;
     padding: 0em;
     display: flex;
     flex-direction: column;
@@ -43,6 +43,7 @@ body {
     position: relative;
     height: 100%;
     width: 100%;
+    border: dotted;
 }
 
 html {
@@ -53,6 +54,15 @@ html {
     html {
         font-size: clamp(0.4rem, min(4.75vw, 2.65vh), 2.5em);
     }
+}
+
+.center-horizontal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 98vh;
 }
 
 .no-display {
