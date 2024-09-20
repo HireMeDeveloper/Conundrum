@@ -197,11 +197,13 @@ function updateCumulativeData() {
     let games = 0;
     let wins = 0;
     let hints = 0;
+    let countedHints = 0;
 
     gameState.games.forEach(game => {
         if (game.wasStarted) games += 1;
         if (game.isWin) wins += 1;
         if (game.usedHint) hints += 1;
+        if (game.isWin && game.usedHint) countedHints += 1;
     })
 
     let hasEntry = cumulativeDataHasEntry(gameState.gameNumber)
@@ -214,7 +216,8 @@ function updateCumulativeData() {
             number: gameState.gameNumber,
             games: games,
             wins: wins,
-            hints: hints
+            hints: hints,
+            countedHints: countedHints
         })
 
         storeCumulativeData()
@@ -227,7 +230,8 @@ function updateCumulativeData() {
             number: gameState.gameNumber,
             games: games,
             wins: wins,
-            hints: hints
+            hints: hints,
+            countedHints: countedHints
         }
 
         storeCumulativeData()

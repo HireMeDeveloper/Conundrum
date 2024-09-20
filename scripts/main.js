@@ -311,6 +311,7 @@ function processStats(cumulativeState) {
             gamesPlayed: 0,
             wins: 0,
             hints: 0,
+            countedHints: 0,
             gradeText: "N/A"
         },
         overall: {
@@ -318,6 +319,7 @@ function processStats(cumulativeState) {
             gamesPlayed: 0,
             wins: 0,
             hints: 0,
+            countedHints: 0,
             gradeText: "N/A"
         }
     }
@@ -347,20 +349,22 @@ function processStats(cumulativeState) {
             result.today.gamesPlayed += entry.games;
             result.today.wins += entry.wins;
             result.today.hints += entry.hints;
+            result.today.countedHints += entry.countedHints
         }
 
         result.overall.gamesPlayed += entry.games;
         result.overall.wins += entry.wins;
         result.overall.hints += entry.hints;
+        result.overall.countedHints += entry.countedHints
     })
 
     if (result.today.gamesPlayed > 0) {
-        let grade = getGrade(result.today.gamesPlayed, result.today.wins, result.today.hints)
+        let grade = getGrade(result.today.gamesPlayed, result.today.wins, result.today.countedHints)
         result.today.gradeText = grade + "%"
     }
 
     if (result.overall.gamesPlayed > 0) {
-        let overallGrade = getGrade(result.overall.gamesPlayed, result.overall.wins, result.overall.hints)
+        let overallGrade = getGrade(result.overall.gamesPlayed, result.overall.wins, result.overall.countedHints)
         result.overall.gradeText = overallGrade + "%"
     }
 
@@ -391,7 +395,11 @@ function updateStats(statsGrid, daysPlayed, games, wins, hintsUsed, grade) {
 }
 
 function getGrade(games, wins, hints) {
-    return ((((5 * wins) - hints) / (games * 5)) * 100).toFixed(0);
+    let grade = (((100 * wins) - (10 * hints)) / games)
+    grade = Math.round(grade).toFixed(0)
+    console.log("Games: " + games + " Wins: " + wins + " Hints: " + hints + "Grade: " + grade);
+
+    return grade;
 }
 
 function pressShare() {
@@ -401,9 +409,15 @@ function pressShare() {
     }
 
     let lastEntry = cumulativeData[cumulativeData.length - 1]
-    let grade = getGrade(lastEntry.games, lastEntry.wins, lastEntry.hints)
+    let grade = getGrade(lastEntry.games, lastEntry.wins, lastEntry.countedHints)
 
-    let textToCopy = "Try Conundrum! \nwww.independent.ie/conundrum \n Puzzle: " + targetGame.number + " " + "\n" + " My score today: " + grade + "%" 
+    let textToCopy = "Try Conundrum! \nwww.independent.ie/conundrum \n Puzzle: " + targetGame.number + " " + "\n" + " My score today: " + grade + "% \n" 
+
+    //"🟩🟥"
+
+    textToCopy += (gameState.games[0].isWin) ? (gameState.games[0].usedHint) ? "\n🟨🟨🟨🟨🟨🟨🟨" : "\n🟩🟩🟩🟩🟩🟩🟩" : "\n🟥🟥🟥🟥🟥🟥🟥"
+    textToCopy += (gameState.games[1].isWin) ? (gameState.games[1].usedHint) ? "\n🟨🟨🟨🟨🟨🟨🟨🟨" : "\n🟩🟩🟩🟩🟩🟩🟩🟩" : "\n🟥🟥🟥🟥🟥🟥🟥🟥"
+    textToCopy += (gameState.games[2].isWin) ? (gameState.games[2].usedHint) ? "\n🟨🟨🟨🟨🟨🟨🟨🟨🟨" : "\n🟩🟩🟩🟩🟩🟩🟩🟩🟩" : "\n🟥🟥🟥🟥🟥🟥🟥🟥🟥"
 
     if (navigator.share && detectTouchscreen() && ALLOW_MOBILE_SHARE) {
         navigator.share({

@@ -35,8 +35,8 @@ function runStatisticsTests() {
     statisticsUnitTest(
         'test-1',
         [
-            { number: 54, games: 1, wins: 0, hints: 0 },
-            { number: 55, games: 3, wins: 1, hints: 1 }
+            { number: 54, games: 1, wins: 0, hints: 0, countedHints: 0 },
+            { number: 55, games: 3, wins: 1, hints: 1, countedHints: 1 }
         ],
         {
             today: {
@@ -44,14 +44,16 @@ function runStatisticsTests() {
                 gamesPlayed: 3,
                 wins: 1,
                 hints: 1,
-                gradeText: "27%"
+                countedHints: 1,
+                gradeText: "30%"
             },
             overall: {
                 daysPlayed: 2,
                 gamesPlayed: 4,
                 wins: 1,
                 hints: 1,
-                gradeText: "20%"
+                countedHints: 1,
+                gradeText: "23%"
             }
         }
     )
@@ -59,10 +61,10 @@ function runStatisticsTests() {
     statisticsUnitTest(
         'test-2',
         [
-            { number: 20, games: 1, wins: 1, hints: 0 },
-            { number: 21, games: 2, wins: 2, hints: 1 },
-            { number: 22, games: 1, wins: 0, hints: 0 },
-            { number: 24, games: 3, wins: 1, hints: 1 }
+            { number: 20, games: 1, wins: 1, hints: 0, countedHints: 0 },
+            { number: 21, games: 2, wins: 2, hints: 1, countedHints: 1 },
+            { number: 22, games: 1, wins: 0, hints: 0, countedHints: 0 },
+            { number: 24, games: 3, wins: 1, hints: 1, countedHints: 1 }
         ],
         {
             today: {
@@ -70,14 +72,16 @@ function runStatisticsTests() {
                 gamesPlayed: 3,
                 wins: 1,
                 hints: 1,
-                gradeText: "27%"
+                countedHints: 1,
+                gradeText: "30%"
             },
             overall: {
                 daysPlayed: 4,
                 gamesPlayed: 7,
                 wins: 4,
                 hints: 2,
-                gradeText: "51%"
+                countedHints: 2,
+                gradeText: "54%" // 55?
             }
         }
     )
@@ -85,18 +89,18 @@ function runStatisticsTests() {
     statisticsUnitTest(
         'test-3',
         [
-            { number: 1, games: 1, wins: 1, hints: 0 },
-            { number: 2, games: 2, wins: 2, hints: 1 },
-            { number: 3, games: 1, wins: 0, hints: 0 },
-            { number: 4, games: 3, wins: 1, hints: 1 },
-            { number: 5, games: 1, wins: 1, hints: 0 },
-            { number: 6, games: 2, wins: 2, hints: 1 },
-            { number: 8, games: 1, wins: 0, hints: 0 },
-            { number: 9, games: 3, wins: 1, hints: 1 },
-            { number: 10, games: 1, wins: 1, hints: 0 },
-            { number: 11, games: 2, wins: 2, hints: 1 },
-            { number: 12, games: 1, wins: 0, hints: 0 },
-            { number: 13, games: 3, wins: 3, hints: 0 }
+            { number: 1, games: 1, wins: 1, hints: 0, countedHints: 0 },
+            { number: 2, games: 2, wins: 2, hints: 1, countedHints: 1 },
+            { number: 3, games: 1, wins: 0, hints: 0, countedHints: 0 },
+            { number: 4, games: 3, wins: 1, hints: 1, countedHints: 0 },
+            { number: 5, games: 1, wins: 1, hints: 0, countedHints: 0 },
+            { number: 6, games: 2, wins: 2, hints: 1, countedHints: 1 },
+            { number: 8, games: 1, wins: 0, hints: 0, countedHints: 0 },
+            { number: 9, games: 3, wins: 1, hints: 1, countedHints: 1 },
+            { number: 10, games: 1, wins: 1, hints: 0, countedHints: 0 },
+            { number: 11, games: 2, wins: 2, hints: 1, countedHints: 1 },
+            { number: 12, games: 1, wins: 0, hints: 0, countedHints: 0 },
+            { number: 13, games: 3, wins: 3, hints: 0, countedHints: 0 }
         ],
         {
             today: {
@@ -104,6 +108,7 @@ function runStatisticsTests() {
                 gamesPlayed: 3,
                 wins: 3,
                 hints: 0,
+                countedHints: 0,
                 gradeText: "100%"
             },
             overall: {
@@ -111,7 +116,8 @@ function runStatisticsTests() {
                 gamesPlayed: 21,
                 wins: 14,
                 hints: 5,
-                gradeText: "62%"
+                countedHints: 4,
+                gradeText: "65%" // 64?
             }
         }
     )
