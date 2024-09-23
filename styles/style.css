@@ -137,7 +137,6 @@ button.hint.changed {
     border-radius: .1em;
     margin: .05em;
     width: 1.8em;
-    aspect-ratio: 1 / 1.25;
     font-weight: bold;
     font-size: 1em;
     cursor: pointer;
@@ -145,6 +144,7 @@ button.hint.changed {
     justify-content: center;
     align-items: center;
     text-align: center;
+    line-height: 2.25em;
 }
 
 .card-button.hidden {
