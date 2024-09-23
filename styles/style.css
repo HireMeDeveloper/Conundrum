@@ -136,6 +136,7 @@ button.hint.changed {
     border: .1em solid black;
     border-radius: .1em;
     margin: .05em;
+    padding-top: 0;
     width: 1.8em;
     height: 1.8em;
     font-weight: bold;
