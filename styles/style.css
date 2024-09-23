@@ -142,8 +142,9 @@ button.hint.changed {
     font-weight: bold;
     font-size: 1em;
     cursor: pointer;
-    display: inline-block;
+    display: flex;
     justify-content: center;
+    align-items: center;
     text-align: center;
 }
 
