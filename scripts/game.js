@@ -561,14 +561,7 @@ function pressHint(button, text) {
     if (button.classList.contains('changed')) return
 
     button.classList.add('changed')
-    text.classList.remove('hidden')
-    text.textContent = currentHint
-
-    if (currentHint.length > 30) {
-        textOne.classList.add('smaller')
-    } else {
-        textOne.classList.remove('smaller')
-    }
+    setHintText(text)
 
     gameState.games[gameState.currentGame].usedHint = true
     storeGameStateData()
@@ -576,16 +569,14 @@ function pressHint(button, text) {
     updateCumulativeData()
 }
 
+function setHintText(element) {
+    element.classList.remove('hidden')
+    element.textContent = currentHint
+}
+
 function activateHint() {
     buttonTwo.classList.add('changed')
-    textTwo.classList.remove('hidden')
-    textTwo.textContent = currentHint
-
-    if (currentHint.length > 30) {
-        textOne.classList.add('smaller')
-    } else {
-        textOne.classList.remove('smaller')
-    }
+    setHintText(textTwo)
 
     gameState.games[gameState.currentGame].usedHint = true
     storeGameStateData()
@@ -650,14 +641,7 @@ function updateGameButtons(duringGame) {
         buttonOne.textContent = "Hint"
         if (gameState.games[gameState.currentGame].usedHint) {
             buttonOne.classList.add('changed')
-            textOne.classList.remove('hidden')
-            textOne.textContent = currentHint
-
-            if (currentHint.length > 30) {
-                textOne.classList.add('smaller')
-            } else {
-                textOne.classList.remove('smaller')
-            }
+            setHintText(textOne)
         }
 
         buttonTwo.classList.add('play-again')

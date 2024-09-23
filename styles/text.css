@@ -13,11 +13,7 @@
 
 .text-game-hint {
     font-style:  italic;
-    font-size: 0.8em;
-}
-
-.text-game-hint.smaller {
-    
+    font-size: 0.6em;
 }
 
 .text-game-hint.hidden {
