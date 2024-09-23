@@ -136,6 +136,7 @@ button.hint.changed {
     border: .1em solid black;
     border-radius: .1em;
     margin: .05em;
+    padding-top: 0.075em;
     width: 1.8em;
     height: 2.25em;
     font-weight: bold;
@@ -143,6 +144,7 @@ button.hint.changed {
     cursor: pointer;
     display: flex;
     justify-content: center;
+    align-items: center;
     text-align: center;
     line-height: 2.25em;
 }
