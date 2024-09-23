@@ -12,10 +12,12 @@
 }
 
 .text-game-hint {
-    width: 16em;
-    height: 1.6;
     font-style:  italic;
-    font-size: .8em;
+    font-size: 0.8em;
+}
+
+.text-game-hint.smaller {
+    
 }
 
 .text-game-hint.hidden {

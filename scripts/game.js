@@ -564,6 +564,12 @@ function pressHint(button, text) {
     text.classList.remove('hidden')
     text.textContent = currentHint
 
+    if (currentHint.length > 30) {
+        textOne.classList.add('smaller')
+    } else {
+        textOne.classList.remove('smaller')
+    }
+
     gameState.games[gameState.currentGame].usedHint = true
     storeGameStateData()
 
@@ -574,6 +580,12 @@ function activateHint() {
     buttonTwo.classList.add('changed')
     textTwo.classList.remove('hidden')
     textTwo.textContent = currentHint
+
+    if (currentHint.length > 30) {
+        textOne.classList.add('smaller')
+    } else {
+        textOne.classList.remove('smaller')
+    }
 
     gameState.games[gameState.currentGame].usedHint = true
     storeGameStateData()
@@ -640,6 +652,12 @@ function updateGameButtons(duringGame) {
             buttonOne.classList.add('changed')
             textOne.classList.remove('hidden')
             textOne.textContent = currentHint
+
+            if (currentHint.length > 30) {
+                textOne.classList.add('smaller')
+            } else {
+                textOne.classList.remove('smaller')
+            }
         }
 
         buttonTwo.classList.add('play-again')
