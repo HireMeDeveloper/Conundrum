@@ -78,7 +78,7 @@ function parseCSV(data) {
         result.push({
             word: word.trim(),         // Remove any surrounding whitespace from the word
             hint: hint.trim(),         // Remove any surrounding whitespace from the hint
-            hint: "a wicked or evil person; someone who does evil deliberately",
+            //hint: "a wicked or evil person; someone who does evil deliberately",
             scrambled: scrambled.trim()  // Remove any surrounding whitespace from the scrambled word
         });
     }
