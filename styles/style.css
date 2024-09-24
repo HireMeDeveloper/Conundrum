@@ -143,9 +143,8 @@ button.hint.changed {
     cursor: pointer;
     display: flex;
     justify-content: center;
-    align-items: baseline;
+    align-items: end;
     text-align: center;
-    line-height: 2.25em;
 }
 
 .card-button.hidden {
