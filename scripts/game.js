@@ -126,12 +126,19 @@ function startTimer() {
     startInteraction()
 
     timerStarted = true
-    updateTimer((30 + (10 * (currentWordSize - 7))) * 100, (30 + (10 * (currentWordSize - 7))) * 100)
+    let timerDuration = getTimerDuration(currentWordSize)
+    updateTimer(timerDuration, timerDuration)
 
     gameState.games[gameState.currentGame].wasStarted = true;
     storeGameStateData();
 
     updateCumulativeData()
+}
+
+function getTimerDuration(wordSize) {
+    console.log("Requested a timer from word size: " + wordSize)
+    if (wordSize > 9) wordSize = 9;
+    return ((30 + (10 * (wordSize - 7))) * 100);
 }
 
 function stopTimer() {

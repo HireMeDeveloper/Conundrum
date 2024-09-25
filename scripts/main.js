@@ -1,9 +1,9 @@
 const DATE_OF_FIRST_PUZZLE = new Date(2024, 6, 25)
 const ALLOW_MOBILE_SHARE = true; 
 
-const DICTIONARY_7LETTER = "resources/Dictionary-7Letter.csv";
-const DICTIONARY_8LETTER = "resources/Dictionary-8Letter.csv";
-const DICTIONARY_9LETTER = "resources/Dictionary-9Letter.csv";
+const DICTIONARY_7LETTER = "resources/Dictionary-7Letter.tsv";
+const DICTIONARY_8LETTER = "resources/Dictionary-8Letter.tsv";
+const DICTIONARY_9LETTER = "resources/Dictionary-9Letter.tsv";
 
 const targetWordsLength = 100
 
@@ -33,15 +33,15 @@ async function fetchCSV() {
     try {
         const responseCSV1 = await fetch(DICTIONARY_7LETTER);
         const csvText1 = await responseCSV1.text();
-        let words7letter = parseCSV(csvText1);
+        let words7letter = parseTSV(csvText1);
 
         const responseCSV2 = await fetch(DICTIONARY_8LETTER);
         const csvText2 = await responseCSV2.text();
-        let words8letter = parseCSV(csvText2);
+        let words8letter = parseTSV(csvText2);
 
         const responseCSV3 = await fetch(DICTIONARY_9LETTER);
         const csvText3 = await responseCSV3.text();
-        let words9letter = parseCSV(csvText3);
+        let words9letter = parseTSV(csvText3);
 
         for (let i = 0; i < words7letter.length; i++){
             puzzleList.push({
@@ -80,6 +80,24 @@ function parseCSV(data) {
             hint: hint.trim(),         // Remove any surrounding whitespace from the hint
             //hint: "a wicked or evil person; someone who does evil deliberately",
             scrambled: scrambled.trim()  // Remove any surrounding whitespace from the scrambled word
+        });
+    }
+
+    return result;
+}
+
+function parseTSV(data) {
+    const lines = data.trim().split('\n');
+    const result = [];
+
+    for (let i = 1; i < lines.length; i++) {
+        const [word, hint, scrambled] = lines[i].split('\t');
+
+        result.push({
+            word: word.trim(),
+            hint: hint.trim(),        
+            //hint: "a wicked or evil person; someone who does evil deliberately",
+            scrambled: scrambled.trim()
         });
     }
 

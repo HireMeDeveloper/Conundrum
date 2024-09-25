@@ -122,3 +122,20 @@ function runStatisticsTests() {
         }
     )
 }
+
+runTimerUnitTests()
+
+function timerUnitTest(testName, wordSize, expectedResult) {
+    let results = getTimerDuration(wordSize);
+    if (results === expectedResult) {
+        console.log("TEST (" + testName + "): PASSED");
+    } else {
+        console.log("Test (" + testName + "): FAILED with RESULT: " + results + " and EXPECTED: " + expectedResult)
+    }
+}
+
+function runTimerUnitTests() {
+    timerUnitTest("test 1", 7, 3000)
+    timerUnitTest("test 2", 8, 4000)
+    timerUnitTest("test 3", 9, 5000)
+}
