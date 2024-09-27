@@ -95,8 +95,8 @@ function parseTSV(data) {
 
         result.push({
             word: word.trim(),
-            hint: hint.trim(),        
-            //hint: "a wicked or evil person; someone who does evil deliberately",
+            //hint: hint.trim(),        
+            hint: (word.trim().length === 9) ? "1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0" : hint.trim(),
             scrambled: scrambled.trim()
         });
     }
@@ -180,12 +180,14 @@ function showPage(pageId, oldPage = null) {
     else if (pageId === "stats") {
         updateBodyColor(false)
         updateAllStats()
+        pauseTimer()
     } else if (pageId === "welcome") {
         updateBodyColor(false)
         generateWelcomeMessage()
     } else if (pageId === "info") {
         updateBodyColor(false)
         updateInfoPage()
+        pauseTimer()
     }
 
     if (oldPage != null) lastPage = oldPage

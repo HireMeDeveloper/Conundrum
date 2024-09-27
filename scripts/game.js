@@ -61,6 +61,9 @@ const textOne = document.querySelector("[data-text-one]")
 const buttonTwo = document.querySelector("[data-button-two]")
 const textTwo = document.querySelector("[data-text-two]")
 
+let currentTimerTime = 0
+let currentTimerMax = 0
+
 function loadGame() {
     
 }
@@ -109,11 +112,13 @@ function openGame() {
         loadPuzzleFromState(gameState.currentGame)
     }
 
-    if (gameState.hasOpenedPuzzle === false) startTimer()
-
     if (gameState.hasOpenedPuzzle === false) {
+        startTimer()
+        fireEvent("start-first-game")
         gameState.hasOpenedPuzzle = true;
         storeGameStateData()
+    } else {
+        unpauseTimer()
     }
 
     if (gameHasStarted) return
@@ -145,8 +150,22 @@ function stopTimer() {
     timerStarted = false
 }
 
+function pauseTimer() {
+    timerStarted = false
+}
+
+function unpauseTimer() {
+    if (currentTimerTime === 0) return;
+    timerStarted = true
+
+    updateTimer(currentTimerTime, currentTimerMax)
+}
+
 function updateTimer(totalHundredths, maxTime) {
     if (timerStarted === false) return;
+
+    currentTimerTime = totalHundredths
+    currentTimerMax = maxTime
 
     let seconds = Math.floor(totalHundredths / 100);
     let hundredths = totalHundredths % 100;
@@ -661,6 +680,7 @@ function updateGameButtons(duringGame) {
             }
         } else {
             gameState.isComplete = true;
+            fireEvent("end-third-game")
             storeGameStateData()
 
             buttonTwo.textContent = "See Stats"
