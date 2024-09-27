@@ -95,8 +95,8 @@ function parseTSV(data) {
 
         result.push({
             word: word.trim(),
-            //hint: hint.trim(),        
-            hint: (word.trim().length === 9) ? "1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0" : hint.trim(),
+            hint: hint.trim(),        
+            //hint: (word.trim().length === 9) ? "1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0" : hint.trim(),
             scrambled: scrambled.trim()
         });
     }
