@@ -679,9 +679,11 @@ function updateGameButtons(duringGame) {
                 fireEvent("play-next-game");
             }
         } else {
-            gameState.isComplete = true;
-            fireEvent("end-third-game")
-            storeGameStateData()
+            if (gameState.isComplete === false) {
+                fireEvent("end-third-game")
+                gameState.isComplete = true;
+                storeGameStateData()
+            }
 
             buttonTwo.textContent = "See Stats"
             buttonTwo.onclick = function () {
