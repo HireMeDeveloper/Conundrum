@@ -114,7 +114,7 @@ function openGame() {
 
     if (gameState.hasOpenedPuzzle === false) {
         startTimer()
-        fireEvent("start-first-game")
+        fireEvent("onGameStart")
         gameState.hasOpenedPuzzle = true;
         storeGameStateData()
     } else {
@@ -676,11 +676,11 @@ function updateGameButtons(duringGame) {
             buttonTwo.textContent = "Play Next"
             buttonTwo.onclick = function () {
                 playNext()
-                fireEvent("play-next-game");
+                fireEvent("playNextGame");
             }
         } else {
             if (gameState.isComplete === false) {
-                fireEvent("end-third-game")
+                fireEvent("onFirstCompletion")
                 gameState.isComplete = true;
                 storeGameStateData()
             }
@@ -688,7 +688,7 @@ function updateGameButtons(duringGame) {
             buttonTwo.textContent = "See Stats"
             buttonTwo.onclick = function () {
                 showPage("stats")
-                fireEvent("game-3-to-stats");
+                fireEvent("gameThreeToStats");
             }
         }
     }

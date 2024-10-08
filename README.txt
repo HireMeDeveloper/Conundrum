@@ -14,14 +14,14 @@ Notes on Implementation:
     Events:
         There are a handful of events, as requested, that are sent to the data layer.
         Each of these events are based around the buttons that players use in the game.
-            from-welcome-to-stats: this event is fired when a player presses the stats button from the welcome page.
-            pressed-share: this event is fired when a player presses the share button.
-            game-3-to-stats: this event is fired when a player presses the stats button from the game 3 page.
-            continue-game: this event is fired when a player presses the continue button from the welcome page.
-            play-next-game: this event is fired when a player presses the play next button after completing a game.
+            fromWelcomeToStats: this event is fired when a player presses the stats button from the welcome page.
+            pressedShare: this event is fired when a player presses the share button.
+            gameThreeToStats: this event is fired when a player presses the stats button from the game 3 page.
+            continueGame: this event is fired when a player presses the continue button from the welcome page.
+            playNextGame: this event is fired when a player presses the play next button after completing a game.
         These events fire at the start and end of the puzzle.
-            start-first-game: fires when the first game is started in the puzzle
-            end-third-game: fires when the player finished the third game of the puzzle
+            onGameStart: fires when the first game is started in the puzzle
+            onFirstCompletion: fires when the player finished the third game of the puzzle
 
 Testing:
 
