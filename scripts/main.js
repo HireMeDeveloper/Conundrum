@@ -280,7 +280,7 @@ function generateWelcomeMessage() {
         welcomeButton.textContent = "Continue"
         welcomeButton.onclick = () => {
             showPage('game')
-            fireEvent("continue-game")
+            fireEvent("continueGame")
         }
     } else {
         welcomeHeader.textContent = "Hello"
@@ -289,7 +289,7 @@ function generateWelcomeMessage() {
         welcomeButton.textContent = "See Stats"
         welcomeButton.onclick = () => {
             showPage('stats')
-            fireEvent("from-welcome-to-stats")
+            fireEvent("fromWelcomeToStats")
         }
     }
 
@@ -315,7 +315,7 @@ function updateInfoPage() {
         playButton.textContent = "Play"
         playButton.onclick = function () {
             showPage("game")
-            fireEvent("play-game")
+            fireEvent("pressedPlay")
         } 
     } else {
         playButton.textContent = "Continue"
@@ -449,7 +449,7 @@ function pressShare() {
         showShareAlert("Link Copied! Share with Your Friends!")
     }
 
-    fireEvent("pressed-share");
+    fireEvent("pressedShare");
 }
 
 function detectTouchscreen() {
